@@ -9,7 +9,12 @@ namespace API
     public static class WebApiConfig
     {
         public static void Register(HttpConfiguration config)
-        {  
+        {
+
+            config.Formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling =
+                Newtonsoft.Json.PreserveReferencesHandling.Objects;
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
+
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(

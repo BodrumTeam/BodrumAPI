@@ -16,6 +16,8 @@ namespace API.BLL.Managers
         {
         }
 
+        
+
         public UserLogin userLogin { get; set; }
         public RegisterResult RegisterResult { get; set; }
         public bool IsUserExist(UserLogin userLogin)

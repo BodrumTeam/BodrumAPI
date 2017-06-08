@@ -9,6 +9,7 @@ using API.DTO;
 using API.BLL.Managers;
 using API.BLL.UnitOFWork;
 using API.Enum;
+using Entity.DAL;
 
 namespace API.Controllers
 {
@@ -16,14 +17,17 @@ namespace API.Controllers
     public class AcountController : ApiController
     {
         private UnitOfWork uow = new UnitOfWork();
-        // GET: api/Acount
-        public IEnumerable<string> Get()
+        // GET: rpc/acount/getAll
+        [Route("getAll")]
+        public IEnumerable<User> Get()
         {
-            string s = Token.GenerateToken("hassona", 20);
-            return new string[] { "value1", "value2" };
+            List<User> users = uow.UserManager.GetAll().ToList();
+            return users;
+            //string s = Token.GenerateToken("hassona", 20);
+            //return new List<string> { "value1", "value2" };
         }
 
-        // GET: api/Acount/5
+        // GET: rpc/acount/5
         public string Get(int id)
         {
             return "value";
@@ -61,12 +65,12 @@ namespace API.Controllers
         }
 
 
-        // PUT: api/Acount/5
+        // PUT: rpc/account/5
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE: api/Acount/5
+        // DELETE: rpc/acount/5
         public void Delete(int id)
         {
         }
