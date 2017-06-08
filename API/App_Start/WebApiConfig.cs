@@ -10,12 +10,6 @@ namespace API
     {
         public static void Register(HttpConfiguration config)
         {
-            //var cross = new EnableCorsAttribute("*", "*", "*");
-            //config.EnableCors(cross);
-
-            // Web API configuration and services
-
-            // Web API routes
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
