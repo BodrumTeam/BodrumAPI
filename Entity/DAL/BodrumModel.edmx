@@ -1,0 +1,997 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BodrumModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="50" />
+          <Property Name="description" Type="nvarchar" MaxLength="800" />
+          <Property Name="isDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="text" Type="nvarchar" MaxLength="800" />
+          <Property Name="date" Type="datetime" />
+          <Property Name="isDeleted" Type="bit" />
+          <Property Name="fk_parentcommentId" Type="int" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="50" />
+          <Property Name="description" Type="nvarchar" MaxLength="800" />
+          <Property Name="photo" Type="nvarchar" MaxLength="150" />
+          <Property Name="price" Type="float" />
+          <Property Name="date" Type="datetime" />
+          <Property Name="isApproved" Type="bit" />
+          <Property Name="isAvailable" Type="bit" />
+          <Property Name="isDeleted" Type="bit" />
+          <Property Name="fk_categoryId" Type="int" />
+        </EntityType>
+        <EntityType Name="Item_Operation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_itemId" Type="int" />
+          <Property Name="fk_operationId" Type="int" />
+        </EntityType>
+        <EntityType Name="Needs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="800" />
+          <Property Name="date" Type="datetime" />
+          <Property Name="isApproved" Type="bit" />
+          <Property Name="isAvailable" Type="bit" />
+          <Property Name="isDeleted" Type="bit" />
+          <Property Name="fk_userId" Type="int" />
+        </EntityType>
+        <EntityType Name="Needs_OperationType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_itemId" Type="int" />
+          <Property Name="fk_operationId" Type="int" />
+        </EntityType>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="msg" Type="nvarchar" MaxLength="100" />
+          <Property Name="isSeen" Type="bit" />
+          <Property Name="from_userId" Type="int" />
+          <Property Name="to_userId" Type="int" />
+          <Property Name="isDeleted" Type="bit" />
+          <Property Name="fk_userCommentOnItem" Type="int" />
+        </EntityType>
+        <EntityType Name="Operation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="50" />
+          <Property Name="description" Type="nvarchar" MaxLength="800" />
+          <Property Name="isDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="isDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="country" Type="nvarchar" MaxLength="50" />
+          <Property Name="city" Type="nvarchar" MaxLength="50" />
+          <Property Name="region" Type="nvarchar" MaxLength="50" />
+          <Property Name="photo" Type="nvarchar" MaxLength="500" />
+          <Property Name="gender" Type="nvarchar" MaxLength="50" />
+          <Property Name="age" Type="int" />
+          <Property Name="isDeleted" Type="bit" />
+          <Property Name="fk_roleId" Type="int" />
+        </EntityType>
+        <EntityType Name="UserCommentOnItem">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_userId" Type="int" />
+          <Property Name="fk_commentId" Type="int" />
+          <Property Name="fk_itemId" Type="int" />
+        </EntityType>
+        <EntityType Name="UserMobile">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mobile" Type="int" />
+          <Property Name="fk_userId" Type="int" />
+        </EntityType>
+        <Association Name="FK__Comment__fk_pare__3D5E1FD2">
+          <End Role="Comment" Type="Self.Comment" Multiplicity="0..1" />
+          <End Role="Comment1" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comment">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Comment1">
+              <PropertyRef Name="fk_parentcommentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Item__fk_categor__286302EC">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="fk_categoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Item_Oper__fk_it__2C3393D0">
+          <End Role="Item" Type="Self.Item" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Item_Operation" Type="Self.Item_Operation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Item_Operation">
+              <PropertyRef Name="fk_itemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Item_Oper__fk_op__2D27B809">
+          <End Role="Operation" Type="Self.Operation" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Item_Operation" Type="Self.Item_Operation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Item_Operation">
+              <PropertyRef Name="fk_operationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Needs__fk_userId__33D4B598">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Needs" Type="Self.Needs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Needs">
+              <PropertyRef Name="fk_userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Needs_Ope__fk_it__37A5467C">
+          <End Role="Item" Type="Self.Item" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Needs_OperationType" Type="Self.Needs_OperationType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Needs_OperationType">
+              <PropertyRef Name="fk_itemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Needs_Ope__fk_op__38996AB5">
+          <End Role="Operation" Type="Self.Operation" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Needs_OperationType" Type="Self.Needs_OperationType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Needs_OperationType">
+              <PropertyRef Name="fk_operationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Notificat__fk_us__49C3F6B7">
+          <End Role="UserCommentOnItem" Type="Self.UserCommentOnItem" Multiplicity="0..1" />
+          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserCommentOnItem">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="fk_userCommentOnItem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Notificat__from___46E78A0C">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="from_userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Notificat__to_us__47DBAE45">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="to_userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User__fk_roleId__173876EA">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="fk_roleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserComme__fk_co__4222D4EF">
+          <End Role="Comment" Type="Self.Comment" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserCommentOnItem" Type="Self.UserCommentOnItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comment">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserCommentOnItem">
+              <PropertyRef Name="fk_commentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserComme__fk_it__4316F928">
+          <End Role="Item" Type="Self.Item" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserCommentOnItem" Type="Self.UserCommentOnItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserCommentOnItem">
+              <PropertyRef Name="fk_itemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserComme__fk_us__412EB0B6">
+          <End Role="User" Type="Self.User" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserCommentOnItem" Type="Self.UserCommentOnItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserCommentOnItem">
+              <PropertyRef Name="fk_userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserMobil__fk_us__1A14E395">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserMobile" Type="Self.UserMobile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserMobile">
+              <PropertyRef Name="fk_userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BodrumModelStoreContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Item_Operation" EntityType="Self.Item_Operation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Needs" EntityType="Self.Needs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Needs_OperationType" EntityType="Self.Needs_OperationType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notification" EntityType="Self.Notification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Operation" EntityType="Self.Operation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserCommentOnItem" EntityType="Self.UserCommentOnItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserMobile" EntityType="Self.UserMobile" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Comment__fk_pare__3D5E1FD2" Association="Self.FK__Comment__fk_pare__3D5E1FD2">
+            <End Role="Comment" EntitySet="Comment" />
+            <End Role="Comment1" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Item__fk_categor__286302EC" Association="Self.FK__Item__fk_categor__286302EC">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Item" EntitySet="Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Item_Oper__fk_it__2C3393D0" Association="Self.FK__Item_Oper__fk_it__2C3393D0">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="Item_Operation" EntitySet="Item_Operation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Item_Oper__fk_op__2D27B809" Association="Self.FK__Item_Oper__fk_op__2D27B809">
+            <End Role="Operation" EntitySet="Operation" />
+            <End Role="Item_Operation" EntitySet="Item_Operation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Needs__fk_userId__33D4B598" Association="Self.FK__Needs__fk_userId__33D4B598">
+            <End Role="User" EntitySet="User" />
+            <End Role="Needs" EntitySet="Needs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Needs_Ope__fk_it__37A5467C" Association="Self.FK__Needs_Ope__fk_it__37A5467C">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="Needs_OperationType" EntitySet="Needs_OperationType" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Needs_Ope__fk_op__38996AB5" Association="Self.FK__Needs_Ope__fk_op__38996AB5">
+            <End Role="Operation" EntitySet="Operation" />
+            <End Role="Needs_OperationType" EntitySet="Needs_OperationType" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Notificat__fk_us__49C3F6B7" Association="Self.FK__Notificat__fk_us__49C3F6B7">
+            <End Role="UserCommentOnItem" EntitySet="UserCommentOnItem" />
+            <End Role="Notification" EntitySet="Notification" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Notificat__from___46E78A0C" Association="Self.FK__Notificat__from___46E78A0C">
+            <End Role="User" EntitySet="User" />
+            <End Role="Notification" EntitySet="Notification" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Notificat__to_us__47DBAE45" Association="Self.FK__Notificat__to_us__47DBAE45">
+            <End Role="User" EntitySet="User" />
+            <End Role="Notification" EntitySet="Notification" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User__fk_roleId__173876EA" Association="Self.FK__User__fk_roleId__173876EA">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserComme__fk_co__4222D4EF" Association="Self.FK__UserComme__fk_co__4222D4EF">
+            <End Role="Comment" EntitySet="Comment" />
+            <End Role="UserCommentOnItem" EntitySet="UserCommentOnItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserComme__fk_it__4316F928" Association="Self.FK__UserComme__fk_it__4316F928">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="UserCommentOnItem" EntitySet="UserCommentOnItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserComme__fk_us__412EB0B6" Association="Self.FK__UserComme__fk_us__412EB0B6">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserCommentOnItem" EntitySet="UserCommentOnItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserMobil__fk_us__1A14E395" Association="Self.FK__UserMobil__fk_us__1A14E395">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserMobile" EntitySet="UserMobile" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BodrumModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="800" FixedLength="false" Unicode="true" />
+          <Property Name="isDeleted" Type="Boolean" />
+          <NavigationProperty Name="Items" Relationship="Self.FK__Item__fk_categor__286302EC" FromRole="Category" ToRole="Item" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="text" Type="String" MaxLength="800" FixedLength="false" Unicode="true" />
+          <Property Name="date" Type="DateTime" Precision="3" />
+          <Property Name="isDeleted" Type="Boolean" />
+          <Property Name="fk_parentcommentId" Type="Int32" />
+          <NavigationProperty Name="Comment1" Relationship="Self.FK__Comment__fk_pare__3D5E1FD2" FromRole="Comment" ToRole="Comment1" />
+          <NavigationProperty Name="Comment2" Relationship="Self.FK__Comment__fk_pare__3D5E1FD2" FromRole="Comment1" ToRole="Comment" />
+          <NavigationProperty Name="UserCommentOnItems" Relationship="Self.FK__UserComme__fk_co__4222D4EF" FromRole="Comment" ToRole="UserCommentOnItem" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="800" FixedLength="false" Unicode="true" />
+          <Property Name="photo" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="Double" />
+          <Property Name="date" Type="DateTime" Precision="3" />
+          <Property Name="isApproved" Type="Boolean" />
+          <Property Name="isAvailable" Type="Boolean" />
+          <Property Name="isDeleted" Type="Boolean" />
+          <Property Name="fk_categoryId" Type="Int32" />
+          <NavigationProperty Name="Category" Relationship="Self.FK__Item__fk_categor__286302EC" FromRole="Item" ToRole="Category" />
+          <NavigationProperty Name="Item_Operation" Relationship="Self.FK__Item_Oper__fk_it__2C3393D0" FromRole="Item" ToRole="Item_Operation" />
+          <NavigationProperty Name="Needs_OperationType" Relationship="Self.FK__Needs_Ope__fk_it__37A5467C" FromRole="Item" ToRole="Needs_OperationType" />
+          <NavigationProperty Name="UserCommentOnItems" Relationship="Self.FK__UserComme__fk_it__4316F928" FromRole="Item" ToRole="UserCommentOnItem" />
+        </EntityType>
+        <EntityType Name="Item_Operation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_itemId" Type="Int32" />
+          <Property Name="fk_operationId" Type="Int32" />
+          <NavigationProperty Name="Item" Relationship="Self.FK__Item_Oper__fk_it__2C3393D0" FromRole="Item_Operation" ToRole="Item" />
+          <NavigationProperty Name="Operation" Relationship="Self.FK__Item_Oper__fk_op__2D27B809" FromRole="Item_Operation" ToRole="Operation" />
+        </EntityType>
+        <EntityType Name="Need">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" MaxLength="800" FixedLength="false" Unicode="true" />
+          <Property Name="date" Type="DateTime" Precision="3" />
+          <Property Name="isApproved" Type="Boolean" />
+          <Property Name="isAvailable" Type="Boolean" />
+          <Property Name="isDeleted" Type="Boolean" />
+          <Property Name="fk_userId" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Needs__fk_userId__33D4B598" FromRole="Needs" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Needs_OperationType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_itemId" Type="Int32" />
+          <Property Name="fk_operationId" Type="Int32" />
+          <NavigationProperty Name="Item" Relationship="Self.FK__Needs_Ope__fk_it__37A5467C" FromRole="Needs_OperationType" ToRole="Item" />
+          <NavigationProperty Name="Operation" Relationship="Self.FK__Needs_Ope__fk_op__38996AB5" FromRole="Needs_OperationType" ToRole="Operation" />
+        </EntityType>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="msg" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="isSeen" Type="Boolean" />
+          <Property Name="from_userId" Type="Int32" />
+          <Property Name="to_userId" Type="Int32" />
+          <Property Name="isDeleted" Type="Boolean" />
+          <Property Name="fk_userCommentOnItem" Type="Int32" />
+          <NavigationProperty Name="UserCommentOnItem" Relationship="Self.FK__Notificat__fk_us__49C3F6B7" FromRole="Notification" ToRole="UserCommentOnItem" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Notificat__from___46E78A0C" FromRole="Notification" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="Self.FK__Notificat__to_us__47DBAE45" FromRole="Notification" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Operation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="800" FixedLength="false" Unicode="true" />
+          <Property Name="isDeleted" Type="Boolean" />
+          <NavigationProperty Name="Item_Operation" Relationship="Self.FK__Item_Oper__fk_op__2D27B809" FromRole="Operation" ToRole="Item_Operation" />
+          <NavigationProperty Name="Needs_OperationType" Relationship="Self.FK__Needs_Ope__fk_op__38996AB5" FromRole="Operation" ToRole="Needs_OperationType" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="isDeleted" Type="Boolean" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__User__fk_roleId__173876EA" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="region" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="photo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="age" Type="Int32" />
+          <Property Name="isDeleted" Type="Boolean" />
+          <Property Name="fk_roleId" Type="Int32" />
+          <NavigationProperty Name="Needs" Relationship="Self.FK__Needs__fk_userId__33D4B598" FromRole="User" ToRole="Needs" />
+          <NavigationProperty Name="Notifications" Relationship="Self.FK__Notificat__from___46E78A0C" FromRole="User" ToRole="Notification" />
+          <NavigationProperty Name="Notifications1" Relationship="Self.FK__Notificat__to_us__47DBAE45" FromRole="User" ToRole="Notification" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__User__fk_roleId__173876EA" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="UserCommentOnItems" Relationship="Self.FK__UserComme__fk_us__412EB0B6" FromRole="User" ToRole="UserCommentOnItem" />
+          <NavigationProperty Name="UserMobiles" Relationship="Self.FK__UserMobil__fk_us__1A14E395" FromRole="User" ToRole="UserMobile" />
+        </EntityType>
+        <EntityType Name="UserCommentOnItem">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_userId" Type="Int32" />
+          <Property Name="fk_commentId" Type="Int32" />
+          <Property Name="fk_itemId" Type="Int32" />
+          <NavigationProperty Name="Comment" Relationship="Self.FK__UserComme__fk_co__4222D4EF" FromRole="UserCommentOnItem" ToRole="Comment" />
+          <NavigationProperty Name="Item" Relationship="Self.FK__UserComme__fk_it__4316F928" FromRole="UserCommentOnItem" ToRole="Item" />
+          <NavigationProperty Name="Notifications" Relationship="Self.FK__Notificat__fk_us__49C3F6B7" FromRole="UserCommentOnItem" ToRole="Notification" />
+          <NavigationProperty Name="User" Relationship="Self.FK__UserComme__fk_us__412EB0B6" FromRole="UserCommentOnItem" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserMobile">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mobile" Type="Int32" />
+          <Property Name="fk_userId" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="Self.FK__UserMobil__fk_us__1A14E395" FromRole="UserMobile" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__Item__fk_categor__286302EC">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="fk_categoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__fk_pare__3D5E1FD2">
+          <End Role="Comment" Type="Self.Comment" Multiplicity="0..1" />
+          <End Role="Comment1" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comment">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Comment1">
+              <PropertyRef Name="fk_parentcommentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserComme__fk_co__4222D4EF">
+          <End Role="Comment" Type="Self.Comment" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserCommentOnItem" Type="Self.UserCommentOnItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comment">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserCommentOnItem">
+              <PropertyRef Name="fk_commentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Item_Oper__fk_it__2C3393D0">
+          <End Role="Item" Type="Self.Item" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Item_Operation" Type="Self.Item_Operation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Item_Operation">
+              <PropertyRef Name="fk_itemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Needs_Ope__fk_it__37A5467C">
+          <End Role="Item" Type="Self.Item" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Needs_OperationType" Type="Self.Needs_OperationType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Needs_OperationType">
+              <PropertyRef Name="fk_itemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserComme__fk_it__4316F928">
+          <End Role="Item" Type="Self.Item" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserCommentOnItem" Type="Self.UserCommentOnItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserCommentOnItem">
+              <PropertyRef Name="fk_itemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Item_Oper__fk_op__2D27B809">
+          <End Role="Operation" Type="Self.Operation" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Item_Operation" Type="Self.Item_Operation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Item_Operation">
+              <PropertyRef Name="fk_operationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Needs__fk_userId__33D4B598">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Needs" Type="Self.Need" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Needs">
+              <PropertyRef Name="fk_userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Needs_Ope__fk_op__38996AB5">
+          <End Role="Operation" Type="Self.Operation" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Needs_OperationType" Type="Self.Needs_OperationType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Needs_OperationType">
+              <PropertyRef Name="fk_operationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Notificat__fk_us__49C3F6B7">
+          <End Role="UserCommentOnItem" Type="Self.UserCommentOnItem" Multiplicity="0..1" />
+          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserCommentOnItem">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="fk_userCommentOnItem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Notificat__from___46E78A0C">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="from_userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Notificat__to_us__47DBAE45">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="to_userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User__fk_roleId__173876EA">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="fk_roleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserComme__fk_us__412EB0B6">
+          <End Role="User" Type="Self.User" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserCommentOnItem" Type="Self.UserCommentOnItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserCommentOnItem">
+              <PropertyRef Name="fk_userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserMobil__fk_us__1A14E395">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserMobile" Type="Self.UserMobile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserMobile">
+              <PropertyRef Name="fk_userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BodrumEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Comments" EntityType="Self.Comment" />
+          <EntitySet Name="Items" EntityType="Self.Item" />
+          <EntitySet Name="Item_Operation" EntityType="Self.Item_Operation" />
+          <EntitySet Name="Needs" EntityType="Self.Need" />
+          <EntitySet Name="Needs_OperationType" EntityType="Self.Needs_OperationType" />
+          <EntitySet Name="Notifications" EntityType="Self.Notification" />
+          <EntitySet Name="Operations" EntityType="Self.Operation" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UserCommentOnItems" EntityType="Self.UserCommentOnItem" />
+          <EntitySet Name="UserMobiles" EntityType="Self.UserMobile" />
+          <AssociationSet Name="FK__Item__fk_categor__286302EC" Association="Self.FK__Item__fk_categor__286302EC">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Item" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__fk_pare__3D5E1FD2" Association="Self.FK__Comment__fk_pare__3D5E1FD2">
+            <End Role="Comment" EntitySet="Comments" />
+            <End Role="Comment1" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserComme__fk_co__4222D4EF" Association="Self.FK__UserComme__fk_co__4222D4EF">
+            <End Role="Comment" EntitySet="Comments" />
+            <End Role="UserCommentOnItem" EntitySet="UserCommentOnItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Item_Oper__fk_it__2C3393D0" Association="Self.FK__Item_Oper__fk_it__2C3393D0">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="Item_Operation" EntitySet="Item_Operation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Needs_Ope__fk_it__37A5467C" Association="Self.FK__Needs_Ope__fk_it__37A5467C">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="Needs_OperationType" EntitySet="Needs_OperationType" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserComme__fk_it__4316F928" Association="Self.FK__UserComme__fk_it__4316F928">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="UserCommentOnItem" EntitySet="UserCommentOnItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Item_Oper__fk_op__2D27B809" Association="Self.FK__Item_Oper__fk_op__2D27B809">
+            <End Role="Operation" EntitySet="Operations" />
+            <End Role="Item_Operation" EntitySet="Item_Operation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Needs__fk_userId__33D4B598" Association="Self.FK__Needs__fk_userId__33D4B598">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Needs" EntitySet="Needs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Needs_Ope__fk_op__38996AB5" Association="Self.FK__Needs_Ope__fk_op__38996AB5">
+            <End Role="Operation" EntitySet="Operations" />
+            <End Role="Needs_OperationType" EntitySet="Needs_OperationType" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Notificat__fk_us__49C3F6B7" Association="Self.FK__Notificat__fk_us__49C3F6B7">
+            <End Role="UserCommentOnItem" EntitySet="UserCommentOnItems" />
+            <End Role="Notification" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Notificat__from___46E78A0C" Association="Self.FK__Notificat__from___46E78A0C">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Notification" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Notificat__to_us__47DBAE45" Association="Self.FK__Notificat__to_us__47DBAE45">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Notification" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User__fk_roleId__173876EA" Association="Self.FK__User__fk_roleId__173876EA">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserComme__fk_us__412EB0B6" Association="Self.FK__UserComme__fk_us__412EB0B6">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserCommentOnItem" EntitySet="UserCommentOnItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserMobil__fk_us__1A14E395" Association="Self.FK__UserMobil__fk_us__1A14E395">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserMobile" EntitySet="UserMobiles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BodrumModelStoreContainer" CdmEntityContainer="BodrumEntities">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="BodrumModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="BodrumModel.Comment">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="fk_parentcommentId" ColumnName="fk_parentcommentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="BodrumModel.Item">
+              <MappingFragment StoreEntitySet="Item">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="isApproved" ColumnName="isApproved" />
+                <ScalarProperty Name="isAvailable" ColumnName="isAvailable" />
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="fk_categoryId" ColumnName="fk_categoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Item_Operation">
+            <EntityTypeMapping TypeName="BodrumModel.Item_Operation">
+              <MappingFragment StoreEntitySet="Item_Operation">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fk_itemId" ColumnName="fk_itemId" />
+                <ScalarProperty Name="fk_operationId" ColumnName="fk_operationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Needs">
+            <EntityTypeMapping TypeName="BodrumModel.Need">
+              <MappingFragment StoreEntitySet="Needs">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="isApproved" ColumnName="isApproved" />
+                <ScalarProperty Name="isAvailable" ColumnName="isAvailable" />
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="fk_userId" ColumnName="fk_userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Needs_OperationType">
+            <EntityTypeMapping TypeName="BodrumModel.Needs_OperationType">
+              <MappingFragment StoreEntitySet="Needs_OperationType">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fk_itemId" ColumnName="fk_itemId" />
+                <ScalarProperty Name="fk_operationId" ColumnName="fk_operationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notifications">
+            <EntityTypeMapping TypeName="BodrumModel.Notification">
+              <MappingFragment StoreEntitySet="Notification">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="msg" ColumnName="msg" />
+                <ScalarProperty Name="isSeen" ColumnName="isSeen" />
+                <ScalarProperty Name="from_userId" ColumnName="from_userId" />
+                <ScalarProperty Name="to_userId" ColumnName="to_userId" />
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="fk_userCommentOnItem" ColumnName="fk_userCommentOnItem" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Operations">
+            <EntityTypeMapping TypeName="BodrumModel.Operation">
+              <MappingFragment StoreEntitySet="Operation">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="BodrumModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="BodrumModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="region" ColumnName="region" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="fk_roleId" ColumnName="fk_roleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserCommentOnItems">
+            <EntityTypeMapping TypeName="BodrumModel.UserCommentOnItem">
+              <MappingFragment StoreEntitySet="UserCommentOnItem">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fk_userId" ColumnName="fk_userId" />
+                <ScalarProperty Name="fk_commentId" ColumnName="fk_commentId" />
+                <ScalarProperty Name="fk_itemId" ColumnName="fk_itemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserMobiles">
+            <EntityTypeMapping TypeName="BodrumModel.UserMobile">
+              <MappingFragment StoreEntitySet="UserMobile">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="fk_userId" ColumnName="fk_userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
