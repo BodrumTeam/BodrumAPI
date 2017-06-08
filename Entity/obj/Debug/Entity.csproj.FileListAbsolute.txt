@@ -1,0 +1,10 @@
+F:\ITI\GP\Imp\api\Bodrum\Entity\bin\Debug\Entity.dll.config
+F:\ITI\GP\Imp\api\Bodrum\Entity\bin\Debug\Entity.dll
+F:\ITI\GP\Imp\api\Bodrum\Entity\bin\Debug\Entity.pdb
+F:\ITI\GP\Imp\api\Bodrum\Entity\bin\Debug\EntityFramework.dll
+F:\ITI\GP\Imp\api\Bodrum\Entity\bin\Debug\EntityFramework.SqlServer.dll
+F:\ITI\GP\Imp\api\Bodrum\Entity\bin\Debug\EntityFramework.xml
+F:\ITI\GP\Imp\api\Bodrum\Entity\bin\Debug\EntityFramework.SqlServer.xml
+F:\ITI\GP\Imp\api\Bodrum\Entity\obj\Debug\Entity.dll
+F:\ITI\GP\Imp\api\Bodrum\Entity\obj\Debug\Entity.pdb
+F:\ITI\GP\Imp\api\Bodrum\Entity\obj\Debug\Entity.csprojResolveAssemblyReference.cache

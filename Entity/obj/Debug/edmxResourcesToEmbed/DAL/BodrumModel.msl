@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BodrumModelStoreContainer" CdmEntityContainer="BodrumEntities">
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="BodrumModel.Category">
+        <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comments">
+      <EntityTypeMapping TypeName="BodrumModel.Comment">
+        <MappingFragment StoreEntitySet="Comment">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="text" ColumnName="text" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+          <ScalarProperty Name="fk_parentcommentId" ColumnName="fk_parentcommentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Items">
+      <EntityTypeMapping TypeName="BodrumModel.Item">
+        <MappingFragment StoreEntitySet="Item">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="photo" ColumnName="photo" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="isApproved" ColumnName="isApproved" />
+          <ScalarProperty Name="isAvailable" ColumnName="isAvailable" />
+          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+          <ScalarProperty Name="fk_categoryId" ColumnName="fk_categoryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Item_Operation">
+      <EntityTypeMapping TypeName="BodrumModel.Item_Operation">
+        <MappingFragment StoreEntitySet="Item_Operation">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="fk_itemId" ColumnName="fk_itemId" />
+          <ScalarProperty Name="fk_operationId" ColumnName="fk_operationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Needs">
+      <EntityTypeMapping TypeName="BodrumModel.Need">
+        <MappingFragment StoreEntitySet="Needs">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="isApproved" ColumnName="isApproved" />
+          <ScalarProperty Name="isAvailable" ColumnName="isAvailable" />
+          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+          <ScalarProperty Name="fk_userId" ColumnName="fk_userId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Needs_OperationType">
+      <EntityTypeMapping TypeName="BodrumModel.Needs_OperationType">
+        <MappingFragment StoreEntitySet="Needs_OperationType">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="fk_itemId" ColumnName="fk_itemId" />
+          <ScalarProperty Name="fk_operationId" ColumnName="fk_operationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Notifications">
+      <EntityTypeMapping TypeName="BodrumModel.Notification">
+        <MappingFragment StoreEntitySet="Notification">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="msg" ColumnName="msg" />
+          <ScalarProperty Name="isSeen" ColumnName="isSeen" />
+          <ScalarProperty Name="from_userId" ColumnName="from_userId" />
+          <ScalarProperty Name="to_userId" ColumnName="to_userId" />
+          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+          <ScalarProperty Name="fk_userCommentOnItem" ColumnName="fk_userCommentOnItem" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Operations">
+      <EntityTypeMapping TypeName="BodrumModel.Operation">
+        <MappingFragment StoreEntitySet="Operation">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="BodrumModel.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="BodrumModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="region" ColumnName="region" />
+          <ScalarProperty Name="photo" ColumnName="photo" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+          <ScalarProperty Name="fk_roleId" ColumnName="fk_roleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserCommentOnItems">
+      <EntityTypeMapping TypeName="BodrumModel.UserCommentOnItem">
+        <MappingFragment StoreEntitySet="UserCommentOnItem">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="fk_userId" ColumnName="fk_userId" />
+          <ScalarProperty Name="fk_commentId" ColumnName="fk_commentId" />
+          <ScalarProperty Name="fk_itemId" ColumnName="fk_itemId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserMobiles">
+      <EntityTypeMapping TypeName="BodrumModel.UserMobile">
+        <MappingFragment StoreEntitySet="UserMobile">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="fk_userId" ColumnName="fk_userId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
