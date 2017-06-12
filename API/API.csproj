@@ -169,6 +169,7 @@
     <Compile Include="BLL\Managers\UserMobileManager.cs" />
     <Compile Include="BLL\UnitOFWork\UnitOfWork.cs" />
     <Compile Include="Controllers\AcountController.cs" />
+    <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="DTO\UserLogin.cs" />
     <Compile Include="Enum\RegisterResult.cs" />
     <Compile Include="Global.asax.cs">
