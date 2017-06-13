@@ -1,20 +1,45 @@
-﻿using System;
+﻿using API.BLL.UnitOFWork;
+using Entity.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using API.JsonWebToken;
+using API.DTO;
+using API.Enum;
 
 namespace API.Controllers
 {
     [RoutePrefix("rpc/location")]
     public class LocationController : ApiController
     {
-        // GET: api/Location
-        public IEnumerable<string> Get()
+        private UnitOfWork uow = new UnitOfWork();
+        
+        [Route("countries/getAll")]
+        public IEnumerable<Country> GetCountries()
         {
-            return new string[] { "value1", "value2" };
+            return uow.CountryManager.GetAll();
         }
+
+        [Route("cities/getAll")]
+        public List<CityDTO> GetCities()
+        {
+            return  uow.CityManager.GetAll().Select(c =>
+            new CityDTO {
+               Id =c.id,
+                Name =c.name,
+                Fk_countryId = c.fk_countryId
+            }).ToList();
+        }
+
+        [Route("regions/getAll")]
+        public IEnumerable<Region> GetRegions()
+        {
+            return uow.RegionManager.GetAll();
+        }
+
 
         // GET: api/Location/5
         public string Get(int id)

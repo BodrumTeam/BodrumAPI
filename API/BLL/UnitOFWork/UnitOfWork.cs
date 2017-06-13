@@ -6,7 +6,30 @@ namespace API.BLL.UnitOFWork
     public class UnitOfWork
     {
         BodrumEntities ctx = new BodrumEntities();
-        
+
+        public CountryManager CountryManager
+        {
+            get
+            {
+                return new CountryManager(ctx);
+            }
+        }
+
+        public CityManager CityManager
+        {
+            get
+            {
+                return new CityManager(ctx);
+            }
+        }
+
+        public RegionManager RegionManager
+        {
+            get
+            {
+                return new RegionManager(ctx);
+            }
+        }
         public CategoryManager CategoryManager
         {
             get

@@ -153,13 +153,16 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BLL\Managers\CategoryManager.cs" />
+    <Compile Include="BLL\Managers\CityManager.cs" />
     <Compile Include="BLL\Managers\CommentManager.cs" />
+    <Compile Include="BLL\Managers\CountryManager.cs" />
     <Compile Include="BLL\Managers\ItemManager.cs" />
     <Compile Include="BLL\Managers\ItemOperationManager.cs" />
     <Compile Include="BLL\Managers\NeedManager.cs" />
     <Compile Include="BLL\Managers\NeedOperationManager.cs" />
     <Compile Include="BLL\Managers\NotificationManager.cs" />
     <Compile Include="BLL\Managers\OperationManager.cs" />
+    <Compile Include="BLL\Managers\RegionManager.cs" />
     <Compile Include="BLL\Managers\RoleManager.cs" />
     <Compile Include="BLL\Managers\UserCommentItemManager.cs" />
     <Compile Include="BLL\Managers\UserManager.cs" />
@@ -168,6 +171,7 @@
     <Compile Include="Controllers\AcountController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
+    <Compile Include="DTO\CityDTO.cs" />
     <Compile Include="DTO\UserLogin.cs" />
     <Compile Include="Enum\RegisterResult.cs" />
     <Compile Include="Global.asax.cs">
