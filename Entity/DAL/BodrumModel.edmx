@@ -14,6 +14,15 @@
           <Property Name="description" Type="nvarchar" MaxLength="800" />
           <Property Name="isDeleted" Type="bit" />
         </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="isDeleted" Type="bit" />
+          <Property Name="fk_countryId" Type="int" />
+        </EntityType>
         <EntityType Name="Comment">
           <Key>
             <PropertyRef Name="id" />
@@ -23,6 +32,14 @@
           <Property Name="date" Type="datetime" />
           <Property Name="isDeleted" Type="bit" />
           <Property Name="fk_parentcommentId" Type="int" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="isDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="Item">
           <Key>
@@ -89,6 +106,15 @@
           <Property Name="description" Type="nvarchar" MaxLength="800" />
           <Property Name="isDeleted" Type="bit" />
         </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="isDeleted" Type="bit" />
+          <Property Name="fk_cityId" Type="int" />
+        </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="id" />
@@ -106,14 +132,14 @@
           <Property Name="username" Type="nvarchar" MaxLength="50" />
           <Property Name="password" Type="nvarchar" MaxLength="50" />
           <Property Name="email" Type="nvarchar" MaxLength="50" />
-          <Property Name="country" Type="nvarchar" MaxLength="50" />
-          <Property Name="city" Type="nvarchar" MaxLength="50" />
           <Property Name="mobile" Type="nvarchar" MaxLength="50" />
-          <Property Name="region" Type="nvarchar" MaxLength="50" />
           <Property Name="photo" Type="nvarchar" MaxLength="500" />
           <Property Name="gender" Type="nvarchar" MaxLength="50" />
           <Property Name="age" Type="int" />
           <Property Name="isDeleted" Type="bit" />
+          <Property Name="fk_countryId" Type="int" />
+          <Property Name="fk_cityId" Type="int" />
+          <Property Name="fk_regionId" Type="int" />
           <Property Name="fk_roleId" Type="int" />
         </EntityType>
         <EntityType Name="UserCommentOnItem">
@@ -133,7 +159,19 @@
           <Property Name="mobile" Type="int" />
           <Property Name="fk_userId" Type="int" />
         </EntityType>
-        <Association Name="FK__Comment__fk_pare__3E52440B">
+        <Association Name="FK__City__fk_country__164452B1">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="fk_countryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__fk_pare__4E88ABD4">
           <End Role="Comment" Type="Self.Comment" Multiplicity="0..1" />
           <End Role="Comment1" Type="Self.Comment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -145,7 +183,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Item__fk_categor__29572725">
+        <Association Name="FK__Item__fk_categor__398D8EEE">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
           <End Role="Item" Type="Self.Item" Multiplicity="*" />
           <ReferentialConstraint>
@@ -157,7 +195,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Item__fk_userId__286302EC">
+        <Association Name="FK__Item__fk_userId__38996AB5">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Item" Type="Self.Item" Multiplicity="*" />
           <ReferentialConstraint>
@@ -169,7 +207,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Item_Oper__fk_it__2D27B809">
+        <Association Name="FK__Item_Oper__fk_it__3D5E1FD2">
           <End Role="Item" Type="Self.Item" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -183,7 +221,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Item_Oper__fk_op__2E1BDC42">
+        <Association Name="FK__Item_Oper__fk_op__3E52440B">
           <End Role="Operation" Type="Self.Operation" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -197,7 +235,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Needs__fk_userId__34C8D9D1">
+        <Association Name="FK__Needs__fk_userId__44FF419A">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Needs" Type="Self.Needs" Multiplicity="*" />
           <ReferentialConstraint>
@@ -209,7 +247,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Needs_Ope__fk_it__38996AB5">
+        <Association Name="FK__Needs_Ope__fk_it__48CFD27E">
           <End Role="Item" Type="Self.Item" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -223,7 +261,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Needs_Ope__fk_op__398D8EEE">
+        <Association Name="FK__Needs_Ope__fk_op__49C3F6B7">
           <End Role="Operation" Type="Self.Operation" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -237,7 +275,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__fk_us__4AB81AF0">
+        <Association Name="FK__Notificat__fk_us__5AEE82B9">
           <End Role="UserCommentOnItem" Type="Self.UserCommentOnItem" Multiplicity="0..1" />
           <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -249,7 +287,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__from___47DBAE45">
+        <Association Name="FK__Notificat__from___5812160E">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -261,7 +299,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__to_us__48CFD27E">
+        <Association Name="FK__Notificat__to_us__59063A47">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -273,7 +311,55 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__User__fk_roleId__173876EA">
+        <Association Name="FK__Region__fk_cityI__1B0907CE">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="Region" Type="Self.Region" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Region">
+              <PropertyRef Name="fk_cityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User__fk_cityId__25869641">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="fk_cityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User__fk_country__24927208">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="fk_countryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User__fk_regionI__267ABA7A">
+          <End Role="Region" Type="Self.Region" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="fk_regionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User__fk_roleId__276EDEB3">
           <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
@@ -285,7 +371,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserComme__fk_co__4316F928">
+        <Association Name="FK__UserComme__fk_co__534D60F1">
           <End Role="Comment" Type="Self.Comment" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -299,7 +385,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserComme__fk_it__440B1D61">
+        <Association Name="FK__UserComme__fk_it__5441852A">
           <End Role="Item" Type="Self.Item" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -313,7 +399,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserComme__fk_us__4222D4EF">
+        <Association Name="FK__UserComme__fk_us__52593CB8">
           <End Role="User" Type="Self.User" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -327,7 +413,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserMobil__fk_us__1A14E395">
+        <Association Name="FK__UserMobil__fk_us__2A4B4B5E">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="UserMobile" Type="Self.UserMobile" Multiplicity="*" />
           <ReferentialConstraint>
@@ -341,78 +427,101 @@
         </Association>
         <EntityContainer Name="BodrumModelStoreContainer">
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Item_Operation" EntityType="Self.Item_Operation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Needs" EntityType="Self.Needs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Needs_OperationType" EntityType="Self.Needs_OperationType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notification" EntityType="Self.Notification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Operation" EntityType="Self.Operation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Region" EntityType="Self.Region" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserCommentOnItem" EntityType="Self.UserCommentOnItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserMobile" EntityType="Self.UserMobile" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Comment__fk_pare__3E52440B" Association="Self.FK__Comment__fk_pare__3E52440B">
+          <AssociationSet Name="FK__City__fk_country__164452B1" Association="Self.FK__City__fk_country__164452B1">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="City" EntitySet="City" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__fk_pare__4E88ABD4" Association="Self.FK__Comment__fk_pare__4E88ABD4">
             <End Role="Comment" EntitySet="Comment" />
             <End Role="Comment1" EntitySet="Comment" />
           </AssociationSet>
-          <AssociationSet Name="FK__Item__fk_categor__29572725" Association="Self.FK__Item__fk_categor__29572725">
+          <AssociationSet Name="FK__Item__fk_categor__398D8EEE" Association="Self.FK__Item__fk_categor__398D8EEE">
             <End Role="Category" EntitySet="Category" />
             <End Role="Item" EntitySet="Item" />
           </AssociationSet>
-          <AssociationSet Name="FK__Item__fk_userId__286302EC" Association="Self.FK__Item__fk_userId__286302EC">
+          <AssociationSet Name="FK__Item__fk_userId__38996AB5" Association="Self.FK__Item__fk_userId__38996AB5">
             <End Role="User" EntitySet="User" />
             <End Role="Item" EntitySet="Item" />
           </AssociationSet>
-          <AssociationSet Name="FK__Item_Oper__fk_it__2D27B809" Association="Self.FK__Item_Oper__fk_it__2D27B809">
+          <AssociationSet Name="FK__Item_Oper__fk_it__3D5E1FD2" Association="Self.FK__Item_Oper__fk_it__3D5E1FD2">
             <End Role="Item" EntitySet="Item" />
             <End Role="Item_Operation" EntitySet="Item_Operation" />
           </AssociationSet>
-          <AssociationSet Name="FK__Item_Oper__fk_op__2E1BDC42" Association="Self.FK__Item_Oper__fk_op__2E1BDC42">
+          <AssociationSet Name="FK__Item_Oper__fk_op__3E52440B" Association="Self.FK__Item_Oper__fk_op__3E52440B">
             <End Role="Operation" EntitySet="Operation" />
             <End Role="Item_Operation" EntitySet="Item_Operation" />
           </AssociationSet>
-          <AssociationSet Name="FK__Needs__fk_userId__34C8D9D1" Association="Self.FK__Needs__fk_userId__34C8D9D1">
+          <AssociationSet Name="FK__Needs__fk_userId__44FF419A" Association="Self.FK__Needs__fk_userId__44FF419A">
             <End Role="User" EntitySet="User" />
             <End Role="Needs" EntitySet="Needs" />
           </AssociationSet>
-          <AssociationSet Name="FK__Needs_Ope__fk_it__38996AB5" Association="Self.FK__Needs_Ope__fk_it__38996AB5">
+          <AssociationSet Name="FK__Needs_Ope__fk_it__48CFD27E" Association="Self.FK__Needs_Ope__fk_it__48CFD27E">
             <End Role="Item" EntitySet="Item" />
             <End Role="Needs_OperationType" EntitySet="Needs_OperationType" />
           </AssociationSet>
-          <AssociationSet Name="FK__Needs_Ope__fk_op__398D8EEE" Association="Self.FK__Needs_Ope__fk_op__398D8EEE">
+          <AssociationSet Name="FK__Needs_Ope__fk_op__49C3F6B7" Association="Self.FK__Needs_Ope__fk_op__49C3F6B7">
             <End Role="Operation" EntitySet="Operation" />
             <End Role="Needs_OperationType" EntitySet="Needs_OperationType" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__fk_us__4AB81AF0" Association="Self.FK__Notificat__fk_us__4AB81AF0">
+          <AssociationSet Name="FK__Notificat__fk_us__5AEE82B9" Association="Self.FK__Notificat__fk_us__5AEE82B9">
             <End Role="UserCommentOnItem" EntitySet="UserCommentOnItem" />
             <End Role="Notification" EntitySet="Notification" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__from___47DBAE45" Association="Self.FK__Notificat__from___47DBAE45">
+          <AssociationSet Name="FK__Notificat__from___5812160E" Association="Self.FK__Notificat__from___5812160E">
             <End Role="User" EntitySet="User" />
             <End Role="Notification" EntitySet="Notification" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__to_us__48CFD27E" Association="Self.FK__Notificat__to_us__48CFD27E">
+          <AssociationSet Name="FK__Notificat__to_us__59063A47" Association="Self.FK__Notificat__to_us__59063A47">
             <End Role="User" EntitySet="User" />
             <End Role="Notification" EntitySet="Notification" />
           </AssociationSet>
-          <AssociationSet Name="FK__User__fk_roleId__173876EA" Association="Self.FK__User__fk_roleId__173876EA">
+          <AssociationSet Name="FK__Region__fk_cityI__1B0907CE" Association="Self.FK__Region__fk_cityI__1B0907CE">
+            <End Role="City" EntitySet="City" />
+            <End Role="Region" EntitySet="Region" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User__fk_cityId__25869641" Association="Self.FK__User__fk_cityId__25869641">
+            <End Role="City" EntitySet="City" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User__fk_country__24927208" Association="Self.FK__User__fk_country__24927208">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User__fk_regionI__267ABA7A" Association="Self.FK__User__fk_regionI__267ABA7A">
+            <End Role="Region" EntitySet="Region" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User__fk_roleId__276EDEB3" Association="Self.FK__User__fk_roleId__276EDEB3">
             <End Role="Role" EntitySet="Role" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserComme__fk_co__4316F928" Association="Self.FK__UserComme__fk_co__4316F928">
+          <AssociationSet Name="FK__UserComme__fk_co__534D60F1" Association="Self.FK__UserComme__fk_co__534D60F1">
             <End Role="Comment" EntitySet="Comment" />
             <End Role="UserCommentOnItem" EntitySet="UserCommentOnItem" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserComme__fk_it__440B1D61" Association="Self.FK__UserComme__fk_it__440B1D61">
+          <AssociationSet Name="FK__UserComme__fk_it__5441852A" Association="Self.FK__UserComme__fk_it__5441852A">
             <End Role="Item" EntitySet="Item" />
             <End Role="UserCommentOnItem" EntitySet="UserCommentOnItem" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserComme__fk_us__4222D4EF" Association="Self.FK__UserComme__fk_us__4222D4EF">
+          <AssociationSet Name="FK__UserComme__fk_us__52593CB8" Association="Self.FK__UserComme__fk_us__52593CB8">
             <End Role="User" EntitySet="User" />
             <End Role="UserCommentOnItem" EntitySet="UserCommentOnItem" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserMobil__fk_us__1A14E395" Association="Self.FK__UserMobil__fk_us__1A14E395">
+          <AssociationSet Name="FK__UserMobil__fk_us__2A4B4B5E" Association="Self.FK__UserMobil__fk_us__2A4B4B5E">
             <End Role="User" EntitySet="User" />
             <End Role="UserMobile" EntitySet="UserMobile" />
           </AssociationSet>
@@ -430,7 +539,19 @@
           <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="description" Type="String" MaxLength="800" FixedLength="false" Unicode="true" />
           <Property Name="isDeleted" Type="Boolean" />
-          <NavigationProperty Name="Items" Relationship="Self.FK__Item__fk_categor__29572725" FromRole="Category" ToRole="Item" />
+          <NavigationProperty Name="Items" Relationship="Self.FK__Item__fk_categor__398D8EEE" FromRole="Category" ToRole="Item" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="isDeleted" Type="Boolean" />
+          <Property Name="fk_countryId" Type="Int32" />
+          <NavigationProperty Name="Country" Relationship="Self.FK__City__fk_country__164452B1" FromRole="City" ToRole="Country" />
+          <NavigationProperty Name="Regions" Relationship="Self.FK__Region__fk_cityI__1B0907CE" FromRole="City" ToRole="Region" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__User__fk_cityId__25869641" FromRole="City" ToRole="User" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -441,9 +562,19 @@
           <Property Name="date" Type="DateTime" Precision="3" />
           <Property Name="isDeleted" Type="Boolean" />
           <Property Name="fk_parentcommentId" Type="Int32" />
-          <NavigationProperty Name="Comment1" Relationship="Self.FK__Comment__fk_pare__3E52440B" FromRole="Comment" ToRole="Comment1" />
-          <NavigationProperty Name="Comment2" Relationship="Self.FK__Comment__fk_pare__3E52440B" FromRole="Comment1" ToRole="Comment" />
-          <NavigationProperty Name="UserCommentOnItems" Relationship="Self.FK__UserComme__fk_co__4316F928" FromRole="Comment" ToRole="UserCommentOnItem" />
+          <NavigationProperty Name="Comment1" Relationship="Self.FK__Comment__fk_pare__4E88ABD4" FromRole="Comment" ToRole="Comment1" />
+          <NavigationProperty Name="Comment2" Relationship="Self.FK__Comment__fk_pare__4E88ABD4" FromRole="Comment1" ToRole="Comment" />
+          <NavigationProperty Name="UserCommentOnItems" Relationship="Self.FK__UserComme__fk_co__534D60F1" FromRole="Comment" ToRole="UserCommentOnItem" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="isDeleted" Type="Boolean" />
+          <NavigationProperty Name="Cities" Relationship="Self.FK__City__fk_country__164452B1" FromRole="Country" ToRole="City" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__User__fk_country__24927208" FromRole="Country" ToRole="User" />
         </EntityType>
         <EntityType Name="Item">
           <Key>
@@ -460,11 +591,11 @@
           <Property Name="isDeleted" Type="Boolean" />
           <Property Name="fk_userId" Type="Int32" />
           <Property Name="fk_categoryId" Type="Int32" />
-          <NavigationProperty Name="Category" Relationship="Self.FK__Item__fk_categor__29572725" FromRole="Item" ToRole="Category" />
-          <NavigationProperty Name="User" Relationship="Self.FK__Item__fk_userId__286302EC" FromRole="Item" ToRole="User" />
-          <NavigationProperty Name="Item_Operation" Relationship="Self.FK__Item_Oper__fk_it__2D27B809" FromRole="Item" ToRole="Item_Operation" />
-          <NavigationProperty Name="Needs_OperationType" Relationship="Self.FK__Needs_Ope__fk_it__38996AB5" FromRole="Item" ToRole="Needs_OperationType" />
-          <NavigationProperty Name="UserCommentOnItems" Relationship="Self.FK__UserComme__fk_it__440B1D61" FromRole="Item" ToRole="UserCommentOnItem" />
+          <NavigationProperty Name="Category" Relationship="Self.FK__Item__fk_categor__398D8EEE" FromRole="Item" ToRole="Category" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Item__fk_userId__38996AB5" FromRole="Item" ToRole="User" />
+          <NavigationProperty Name="Item_Operation" Relationship="Self.FK__Item_Oper__fk_it__3D5E1FD2" FromRole="Item" ToRole="Item_Operation" />
+          <NavigationProperty Name="Needs_OperationType" Relationship="Self.FK__Needs_Ope__fk_it__48CFD27E" FromRole="Item" ToRole="Needs_OperationType" />
+          <NavigationProperty Name="UserCommentOnItems" Relationship="Self.FK__UserComme__fk_it__5441852A" FromRole="Item" ToRole="UserCommentOnItem" />
         </EntityType>
         <EntityType Name="Item_Operation">
           <Key>
@@ -473,8 +604,8 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="fk_itemId" Type="Int32" />
           <Property Name="fk_operationId" Type="Int32" />
-          <NavigationProperty Name="Item" Relationship="Self.FK__Item_Oper__fk_it__2D27B809" FromRole="Item_Operation" ToRole="Item" />
-          <NavigationProperty Name="Operation" Relationship="Self.FK__Item_Oper__fk_op__2E1BDC42" FromRole="Item_Operation" ToRole="Operation" />
+          <NavigationProperty Name="Item" Relationship="Self.FK__Item_Oper__fk_it__3D5E1FD2" FromRole="Item_Operation" ToRole="Item" />
+          <NavigationProperty Name="Operation" Relationship="Self.FK__Item_Oper__fk_op__3E52440B" FromRole="Item_Operation" ToRole="Operation" />
         </EntityType>
         <EntityType Name="Need">
           <Key>
@@ -487,7 +618,7 @@
           <Property Name="isAvailable" Type="Boolean" />
           <Property Name="isDeleted" Type="Boolean" />
           <Property Name="fk_userId" Type="Int32" />
-          <NavigationProperty Name="User" Relationship="Self.FK__Needs__fk_userId__34C8D9D1" FromRole="Needs" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Needs__fk_userId__44FF419A" FromRole="Needs" ToRole="User" />
         </EntityType>
         <EntityType Name="Needs_OperationType">
           <Key>
@@ -496,8 +627,8 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="fk_itemId" Type="Int32" />
           <Property Name="fk_operationId" Type="Int32" />
-          <NavigationProperty Name="Item" Relationship="Self.FK__Needs_Ope__fk_it__38996AB5" FromRole="Needs_OperationType" ToRole="Item" />
-          <NavigationProperty Name="Operation" Relationship="Self.FK__Needs_Ope__fk_op__398D8EEE" FromRole="Needs_OperationType" ToRole="Operation" />
+          <NavigationProperty Name="Item" Relationship="Self.FK__Needs_Ope__fk_it__48CFD27E" FromRole="Needs_OperationType" ToRole="Item" />
+          <NavigationProperty Name="Operation" Relationship="Self.FK__Needs_Ope__fk_op__49C3F6B7" FromRole="Needs_OperationType" ToRole="Operation" />
         </EntityType>
         <EntityType Name="Notification">
           <Key>
@@ -510,9 +641,9 @@
           <Property Name="to_userId" Type="Int32" />
           <Property Name="isDeleted" Type="Boolean" />
           <Property Name="fk_userCommentOnItem" Type="Int32" />
-          <NavigationProperty Name="UserCommentOnItem" Relationship="Self.FK__Notificat__fk_us__4AB81AF0" FromRole="Notification" ToRole="UserCommentOnItem" />
-          <NavigationProperty Name="User" Relationship="Self.FK__Notificat__from___47DBAE45" FromRole="Notification" ToRole="User" />
-          <NavigationProperty Name="User1" Relationship="Self.FK__Notificat__to_us__48CFD27E" FromRole="Notification" ToRole="User" />
+          <NavigationProperty Name="UserCommentOnItem" Relationship="Self.FK__Notificat__fk_us__5AEE82B9" FromRole="Notification" ToRole="UserCommentOnItem" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Notificat__from___5812160E" FromRole="Notification" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="Self.FK__Notificat__to_us__59063A47" FromRole="Notification" ToRole="User" />
         </EntityType>
         <EntityType Name="Operation">
           <Key>
@@ -522,8 +653,19 @@
           <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="description" Type="String" MaxLength="800" FixedLength="false" Unicode="true" />
           <Property Name="isDeleted" Type="Boolean" />
-          <NavigationProperty Name="Item_Operation" Relationship="Self.FK__Item_Oper__fk_op__2E1BDC42" FromRole="Operation" ToRole="Item_Operation" />
-          <NavigationProperty Name="Needs_OperationType" Relationship="Self.FK__Needs_Ope__fk_op__398D8EEE" FromRole="Operation" ToRole="Needs_OperationType" />
+          <NavigationProperty Name="Item_Operation" Relationship="Self.FK__Item_Oper__fk_op__3E52440B" FromRole="Operation" ToRole="Item_Operation" />
+          <NavigationProperty Name="Needs_OperationType" Relationship="Self.FK__Needs_Ope__fk_op__49C3F6B7" FromRole="Operation" ToRole="Needs_OperationType" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="isDeleted" Type="Boolean" />
+          <Property Name="fk_cityId" Type="Int32" />
+          <NavigationProperty Name="City" Relationship="Self.FK__Region__fk_cityI__1B0907CE" FromRole="Region" ToRole="City" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__User__fk_regionI__267ABA7A" FromRole="Region" ToRole="User" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -532,7 +674,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="isDeleted" Type="Boolean" />
-          <NavigationProperty Name="Users" Relationship="Self.FK__User__fk_roleId__173876EA" FromRole="Role" ToRole="User" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__User__fk_roleId__276EDEB3" FromRole="Role" ToRole="User" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -543,22 +685,25 @@
           <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="region" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="photo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="age" Type="Int32" />
           <Property Name="isDeleted" Type="Boolean" />
+          <Property Name="fk_countryId" Type="Int32" />
+          <Property Name="fk_cityId" Type="Int32" />
+          <Property Name="fk_regionId" Type="Int32" />
           <Property Name="fk_roleId" Type="Int32" />
-          <NavigationProperty Name="Items" Relationship="Self.FK__Item__fk_userId__286302EC" FromRole="User" ToRole="Item" />
-          <NavigationProperty Name="Needs" Relationship="Self.FK__Needs__fk_userId__34C8D9D1" FromRole="User" ToRole="Needs" />
-          <NavigationProperty Name="Notifications" Relationship="Self.FK__Notificat__from___47DBAE45" FromRole="User" ToRole="Notification" />
-          <NavigationProperty Name="Notifications1" Relationship="Self.FK__Notificat__to_us__48CFD27E" FromRole="User" ToRole="Notification" />
-          <NavigationProperty Name="Role" Relationship="Self.FK__User__fk_roleId__173876EA" FromRole="User" ToRole="Role" />
-          <NavigationProperty Name="UserCommentOnItems" Relationship="Self.FK__UserComme__fk_us__4222D4EF" FromRole="User" ToRole="UserCommentOnItem" />
-          <NavigationProperty Name="UserMobiles" Relationship="Self.FK__UserMobil__fk_us__1A14E395" FromRole="User" ToRole="UserMobile" />
+          <NavigationProperty Name="City" Relationship="Self.FK__User__fk_cityId__25869641" FromRole="User" ToRole="City" />
+          <NavigationProperty Name="Country" Relationship="Self.FK__User__fk_country__24927208" FromRole="User" ToRole="Country" />
+          <NavigationProperty Name="Items" Relationship="Self.FK__Item__fk_userId__38996AB5" FromRole="User" ToRole="Item" />
+          <NavigationProperty Name="Needs" Relationship="Self.FK__Needs__fk_userId__44FF419A" FromRole="User" ToRole="Needs" />
+          <NavigationProperty Name="Notifications" Relationship="Self.FK__Notificat__from___5812160E" FromRole="User" ToRole="Notification" />
+          <NavigationProperty Name="Notifications1" Relationship="Self.FK__Notificat__to_us__59063A47" FromRole="User" ToRole="Notification" />
+          <NavigationProperty Name="Region" Relationship="Self.FK__User__fk_regionI__267ABA7A" FromRole="User" ToRole="Region" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__User__fk_roleId__276EDEB3" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="UserCommentOnItems" Relationship="Self.FK__UserComme__fk_us__52593CB8" FromRole="User" ToRole="UserCommentOnItem" />
+          <NavigationProperty Name="UserMobiles" Relationship="Self.FK__UserMobil__fk_us__2A4B4B5E" FromRole="User" ToRole="UserMobile" />
         </EntityType>
         <EntityType Name="UserCommentOnItem">
           <Key>
@@ -568,10 +713,10 @@
           <Property Name="fk_userId" Type="Int32" />
           <Property Name="fk_commentId" Type="Int32" />
           <Property Name="fk_itemId" Type="Int32" />
-          <NavigationProperty Name="Comment" Relationship="Self.FK__UserComme__fk_co__4316F928" FromRole="UserCommentOnItem" ToRole="Comment" />
-          <NavigationProperty Name="Item" Relationship="Self.FK__UserComme__fk_it__440B1D61" FromRole="UserCommentOnItem" ToRole="Item" />
-          <NavigationProperty Name="Notifications" Relationship="Self.FK__Notificat__fk_us__4AB81AF0" FromRole="UserCommentOnItem" ToRole="Notification" />
-          <NavigationProperty Name="User" Relationship="Self.FK__UserComme__fk_us__4222D4EF" FromRole="UserCommentOnItem" ToRole="User" />
+          <NavigationProperty Name="Comment" Relationship="Self.FK__UserComme__fk_co__534D60F1" FromRole="UserCommentOnItem" ToRole="Comment" />
+          <NavigationProperty Name="Item" Relationship="Self.FK__UserComme__fk_it__5441852A" FromRole="UserCommentOnItem" ToRole="Item" />
+          <NavigationProperty Name="Notifications" Relationship="Self.FK__Notificat__fk_us__5AEE82B9" FromRole="UserCommentOnItem" ToRole="Notification" />
+          <NavigationProperty Name="User" Relationship="Self.FK__UserComme__fk_us__52593CB8" FromRole="UserCommentOnItem" ToRole="User" />
         </EntityType>
         <EntityType Name="UserMobile">
           <Key>
@@ -580,9 +725,9 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="mobile" Type="Int32" />
           <Property Name="fk_userId" Type="Int32" />
-          <NavigationProperty Name="User" Relationship="Self.FK__UserMobil__fk_us__1A14E395" FromRole="UserMobile" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="Self.FK__UserMobil__fk_us__2A4B4B5E" FromRole="UserMobile" ToRole="User" />
         </EntityType>
-        <Association Name="FK__Item__fk_categor__29572725">
+        <Association Name="FK__Item__fk_categor__398D8EEE">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
           <End Role="Item" Type="Self.Item" Multiplicity="*" />
           <ReferentialConstraint>
@@ -594,7 +739,43 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Comment__fk_pare__3E52440B">
+        <Association Name="FK__City__fk_country__164452B1">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="fk_countryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Region__fk_cityI__1B0907CE">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="Region" Type="Self.Region" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Region">
+              <PropertyRef Name="fk_cityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User__fk_cityId__25869641">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="fk_cityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__fk_pare__4E88ABD4">
           <End Role="Comment" Type="Self.Comment" Multiplicity="0..1" />
           <End Role="Comment1" Type="Self.Comment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -606,7 +787,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserComme__fk_co__4316F928">
+        <Association Name="FK__UserComme__fk_co__534D60F1">
           <End Role="Comment" Type="Self.Comment" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -620,7 +801,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Item__fk_userId__286302EC">
+        <Association Name="FK__User__fk_country__24927208">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="fk_countryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Item__fk_userId__38996AB5">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Item" Type="Self.Item" Multiplicity="*" />
           <ReferentialConstraint>
@@ -632,7 +825,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Item_Oper__fk_it__2D27B809">
+        <Association Name="FK__Item_Oper__fk_it__3D5E1FD2">
           <End Role="Item" Type="Self.Item" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -646,7 +839,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Needs_Ope__fk_it__38996AB5">
+        <Association Name="FK__Needs_Ope__fk_it__48CFD27E">
           <End Role="Item" Type="Self.Item" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -660,7 +853,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserComme__fk_it__440B1D61">
+        <Association Name="FK__UserComme__fk_it__5441852A">
           <End Role="Item" Type="Self.Item" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -674,7 +867,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Item_Oper__fk_op__2E1BDC42">
+        <Association Name="FK__Item_Oper__fk_op__3E52440B">
           <End Role="Operation" Type="Self.Operation" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -688,7 +881,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Needs__fk_userId__34C8D9D1">
+        <Association Name="FK__Needs__fk_userId__44FF419A">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Needs" Type="Self.Need" Multiplicity="*" />
           <ReferentialConstraint>
@@ -700,7 +893,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Needs_Ope__fk_op__398D8EEE">
+        <Association Name="FK__Needs_Ope__fk_op__49C3F6B7">
           <End Role="Operation" Type="Self.Operation" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -714,7 +907,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__fk_us__4AB81AF0">
+        <Association Name="FK__Notificat__fk_us__5AEE82B9">
           <End Role="UserCommentOnItem" Type="Self.UserCommentOnItem" Multiplicity="0..1" />
           <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -726,7 +919,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__from___47DBAE45">
+        <Association Name="FK__Notificat__from___5812160E">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -738,7 +931,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__to_us__48CFD27E">
+        <Association Name="FK__Notificat__to_us__59063A47">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -750,7 +943,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__User__fk_roleId__173876EA">
+        <Association Name="FK__User__fk_regionI__267ABA7A">
+          <End Role="Region" Type="Self.Region" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="fk_regionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User__fk_roleId__276EDEB3">
           <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
@@ -762,7 +967,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserComme__fk_us__4222D4EF">
+        <Association Name="FK__UserComme__fk_us__52593CB8">
           <End Role="User" Type="Self.User" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -776,7 +981,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserMobil__fk_us__1A14E395">
+        <Association Name="FK__UserMobil__fk_us__2A4B4B5E">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="UserMobile" Type="Self.UserMobile" Multiplicity="*" />
           <ReferentialConstraint>
@@ -790,78 +995,101 @@
         </Association>
         <EntityContainer Name="BodrumEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Cities" EntityType="Self.City" />
           <EntitySet Name="Comments" EntityType="Self.Comment" />
+          <EntitySet Name="Countries" EntityType="Self.Country" />
           <EntitySet Name="Items" EntityType="Self.Item" />
           <EntitySet Name="Item_Operation" EntityType="Self.Item_Operation" />
           <EntitySet Name="Needs" EntityType="Self.Need" />
           <EntitySet Name="Needs_OperationType" EntityType="Self.Needs_OperationType" />
           <EntitySet Name="Notifications" EntityType="Self.Notification" />
           <EntitySet Name="Operations" EntityType="Self.Operation" />
+          <EntitySet Name="Regions" EntityType="Self.Region" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="UserCommentOnItems" EntityType="Self.UserCommentOnItem" />
           <EntitySet Name="UserMobiles" EntityType="Self.UserMobile" />
-          <AssociationSet Name="FK__Item__fk_categor__29572725" Association="Self.FK__Item__fk_categor__29572725">
+          <AssociationSet Name="FK__Item__fk_categor__398D8EEE" Association="Self.FK__Item__fk_categor__398D8EEE">
             <End Role="Category" EntitySet="Categories" />
             <End Role="Item" EntitySet="Items" />
           </AssociationSet>
-          <AssociationSet Name="FK__Comment__fk_pare__3E52440B" Association="Self.FK__Comment__fk_pare__3E52440B">
+          <AssociationSet Name="FK__City__fk_country__164452B1" Association="Self.FK__City__fk_country__164452B1">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="City" EntitySet="Cities" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Region__fk_cityI__1B0907CE" Association="Self.FK__Region__fk_cityI__1B0907CE">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="Region" EntitySet="Regions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User__fk_cityId__25869641" Association="Self.FK__User__fk_cityId__25869641">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__fk_pare__4E88ABD4" Association="Self.FK__Comment__fk_pare__4E88ABD4">
             <End Role="Comment" EntitySet="Comments" />
             <End Role="Comment1" EntitySet="Comments" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserComme__fk_co__4316F928" Association="Self.FK__UserComme__fk_co__4316F928">
+          <AssociationSet Name="FK__UserComme__fk_co__534D60F1" Association="Self.FK__UserComme__fk_co__534D60F1">
             <End Role="Comment" EntitySet="Comments" />
             <End Role="UserCommentOnItem" EntitySet="UserCommentOnItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__Item__fk_userId__286302EC" Association="Self.FK__Item__fk_userId__286302EC">
+          <AssociationSet Name="FK__User__fk_country__24927208" Association="Self.FK__User__fk_country__24927208">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Item__fk_userId__38996AB5" Association="Self.FK__Item__fk_userId__38996AB5">
             <End Role="User" EntitySet="Users" />
             <End Role="Item" EntitySet="Items" />
           </AssociationSet>
-          <AssociationSet Name="FK__Item_Oper__fk_it__2D27B809" Association="Self.FK__Item_Oper__fk_it__2D27B809">
+          <AssociationSet Name="FK__Item_Oper__fk_it__3D5E1FD2" Association="Self.FK__Item_Oper__fk_it__3D5E1FD2">
             <End Role="Item" EntitySet="Items" />
             <End Role="Item_Operation" EntitySet="Item_Operation" />
           </AssociationSet>
-          <AssociationSet Name="FK__Needs_Ope__fk_it__38996AB5" Association="Self.FK__Needs_Ope__fk_it__38996AB5">
+          <AssociationSet Name="FK__Needs_Ope__fk_it__48CFD27E" Association="Self.FK__Needs_Ope__fk_it__48CFD27E">
             <End Role="Item" EntitySet="Items" />
             <End Role="Needs_OperationType" EntitySet="Needs_OperationType" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserComme__fk_it__440B1D61" Association="Self.FK__UserComme__fk_it__440B1D61">
+          <AssociationSet Name="FK__UserComme__fk_it__5441852A" Association="Self.FK__UserComme__fk_it__5441852A">
             <End Role="Item" EntitySet="Items" />
             <End Role="UserCommentOnItem" EntitySet="UserCommentOnItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__Item_Oper__fk_op__2E1BDC42" Association="Self.FK__Item_Oper__fk_op__2E1BDC42">
+          <AssociationSet Name="FK__Item_Oper__fk_op__3E52440B" Association="Self.FK__Item_Oper__fk_op__3E52440B">
             <End Role="Operation" EntitySet="Operations" />
             <End Role="Item_Operation" EntitySet="Item_Operation" />
           </AssociationSet>
-          <AssociationSet Name="FK__Needs__fk_userId__34C8D9D1" Association="Self.FK__Needs__fk_userId__34C8D9D1">
+          <AssociationSet Name="FK__Needs__fk_userId__44FF419A" Association="Self.FK__Needs__fk_userId__44FF419A">
             <End Role="User" EntitySet="Users" />
             <End Role="Needs" EntitySet="Needs" />
           </AssociationSet>
-          <AssociationSet Name="FK__Needs_Ope__fk_op__398D8EEE" Association="Self.FK__Needs_Ope__fk_op__398D8EEE">
+          <AssociationSet Name="FK__Needs_Ope__fk_op__49C3F6B7" Association="Self.FK__Needs_Ope__fk_op__49C3F6B7">
             <End Role="Operation" EntitySet="Operations" />
             <End Role="Needs_OperationType" EntitySet="Needs_OperationType" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__fk_us__4AB81AF0" Association="Self.FK__Notificat__fk_us__4AB81AF0">
+          <AssociationSet Name="FK__Notificat__fk_us__5AEE82B9" Association="Self.FK__Notificat__fk_us__5AEE82B9">
             <End Role="UserCommentOnItem" EntitySet="UserCommentOnItems" />
             <End Role="Notification" EntitySet="Notifications" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__from___47DBAE45" Association="Self.FK__Notificat__from___47DBAE45">
+          <AssociationSet Name="FK__Notificat__from___5812160E" Association="Self.FK__Notificat__from___5812160E">
             <End Role="User" EntitySet="Users" />
             <End Role="Notification" EntitySet="Notifications" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__to_us__48CFD27E" Association="Self.FK__Notificat__to_us__48CFD27E">
+          <AssociationSet Name="FK__Notificat__to_us__59063A47" Association="Self.FK__Notificat__to_us__59063A47">
             <End Role="User" EntitySet="Users" />
             <End Role="Notification" EntitySet="Notifications" />
           </AssociationSet>
-          <AssociationSet Name="FK__User__fk_roleId__173876EA" Association="Self.FK__User__fk_roleId__173876EA">
+          <AssociationSet Name="FK__User__fk_regionI__267ABA7A" Association="Self.FK__User__fk_regionI__267ABA7A">
+            <End Role="Region" EntitySet="Regions" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User__fk_roleId__276EDEB3" Association="Self.FK__User__fk_roleId__276EDEB3">
             <End Role="Role" EntitySet="Roles" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserComme__fk_us__4222D4EF" Association="Self.FK__UserComme__fk_us__4222D4EF">
+          <AssociationSet Name="FK__UserComme__fk_us__52593CB8" Association="Self.FK__UserComme__fk_us__52593CB8">
             <End Role="User" EntitySet="Users" />
             <End Role="UserCommentOnItem" EntitySet="UserCommentOnItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserMobil__fk_us__1A14E395" Association="Self.FK__UserMobil__fk_us__1A14E395">
+          <AssociationSet Name="FK__UserMobil__fk_us__2A4B4B5E" Association="Self.FK__UserMobil__fk_us__2A4B4B5E">
             <End Role="User" EntitySet="Users" />
             <End Role="UserMobile" EntitySet="UserMobiles" />
           </AssociationSet>
@@ -882,6 +1110,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="BodrumModel.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="fk_countryId" ColumnName="fk_countryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Comments">
             <EntityTypeMapping TypeName="BodrumModel.Comment">
               <MappingFragment StoreEntitySet="Comment">
@@ -890,6 +1128,15 @@
                 <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
                 <ScalarProperty Name="fk_parentcommentId" ColumnName="fk_parentcommentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="BodrumModel.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -964,6 +1211,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Regions">
+            <EntityTypeMapping TypeName="BodrumModel.Region">
+              <MappingFragment StoreEntitySet="Region">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="fk_cityId" ColumnName="fk_cityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Roles">
             <EntityTypeMapping TypeName="BodrumModel.Role">
               <MappingFragment StoreEntitySet="Role">
@@ -981,14 +1238,14 @@
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="country" ColumnName="country" />
-                <ScalarProperty Name="city" ColumnName="city" />
                 <ScalarProperty Name="mobile" ColumnName="mobile" />
-                <ScalarProperty Name="region" ColumnName="region" />
                 <ScalarProperty Name="photo" ColumnName="photo" />
                 <ScalarProperty Name="gender" ColumnName="gender" />
                 <ScalarProperty Name="age" ColumnName="age" />
                 <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="fk_countryId" ColumnName="fk_countryId" />
+                <ScalarProperty Name="fk_cityId" ColumnName="fk_cityId" />
+                <ScalarProperty Name="fk_regionId" ColumnName="fk_regionId" />
                 <ScalarProperty Name="fk_roleId" ColumnName="fk_roleId" />
               </MappingFragment>
             </EntityTypeMapping>

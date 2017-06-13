@@ -11,6 +11,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Cities">
+      <EntityTypeMapping TypeName="BodrumModel.City">
+        <MappingFragment StoreEntitySet="City">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+          <ScalarProperty Name="fk_countryId" ColumnName="fk_countryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Comments">
       <EntityTypeMapping TypeName="BodrumModel.Comment">
         <MappingFragment StoreEntitySet="Comment">
@@ -19,6 +29,15 @@
           <ScalarProperty Name="date" ColumnName="date" />
           <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
           <ScalarProperty Name="fk_parentcommentId" ColumnName="fk_parentcommentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Countries">
+      <EntityTypeMapping TypeName="BodrumModel.Country">
+        <MappingFragment StoreEntitySet="Country">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -93,6 +112,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Regions">
+      <EntityTypeMapping TypeName="BodrumModel.Region">
+        <MappingFragment StoreEntitySet="Region">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+          <ScalarProperty Name="fk_cityId" ColumnName="fk_cityId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Roles">
       <EntityTypeMapping TypeName="BodrumModel.Role">
         <MappingFragment StoreEntitySet="Role">
@@ -110,14 +139,14 @@
           <ScalarProperty Name="username" ColumnName="username" />
           <ScalarProperty Name="password" ColumnName="password" />
           <ScalarProperty Name="email" ColumnName="email" />
-          <ScalarProperty Name="country" ColumnName="country" />
-          <ScalarProperty Name="city" ColumnName="city" />
           <ScalarProperty Name="mobile" ColumnName="mobile" />
-          <ScalarProperty Name="region" ColumnName="region" />
           <ScalarProperty Name="photo" ColumnName="photo" />
           <ScalarProperty Name="gender" ColumnName="gender" />
           <ScalarProperty Name="age" ColumnName="age" />
           <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+          <ScalarProperty Name="fk_countryId" ColumnName="fk_countryId" />
+          <ScalarProperty Name="fk_cityId" ColumnName="fk_cityId" />
+          <ScalarProperty Name="fk_regionId" ColumnName="fk_regionId" />
           <ScalarProperty Name="fk_roleId" ColumnName="fk_roleId" />
         </MappingFragment>
       </EntityTypeMapping>

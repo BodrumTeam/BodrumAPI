@@ -26,13 +26,16 @@ namespace Entity.DAL
         }
     
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<Item> Items { get; set; }
         public virtual DbSet<Item_Operation> Item_Operation { get; set; }
         public virtual DbSet<Need> Needs { get; set; }
         public virtual DbSet<Needs_OperationType> Needs_OperationType { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<Operation> Operations { get; set; }
+        public virtual DbSet<Region> Regions { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserCommentOnItem> UserCommentOnItems { get; set; }

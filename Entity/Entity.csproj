@@ -69,7 +69,13 @@
     <Compile Include="DAL\Category.cs">
       <DependentUpon>BodrumModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAL\City.cs">
+      <DependentUpon>BodrumModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\Comment.cs">
+      <DependentUpon>BodrumModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Country.cs">
       <DependentUpon>BodrumModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\Item.cs">
@@ -88,6 +94,9 @@
       <DependentUpon>BodrumModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\Operation.cs">
+      <DependentUpon>BodrumModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Region.cs">
       <DependentUpon>BodrumModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\Role.cs">

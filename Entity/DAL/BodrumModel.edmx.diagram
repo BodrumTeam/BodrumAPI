@@ -4,35 +4,43 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="dc49f3a343fa451ab9292470571c07fa" Name="Diagram1">
-        <EntityTypeShape EntityType="BodrumModel.Category" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="BodrumModel.Comment" Width="1.5" PointX="5.25" PointY="17.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BodrumModel.Item" Width="1.5" PointX="5.25" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="BodrumModel.Item_Operation" Width="1.5" PointX="7.5" PointY="6.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="BodrumModel.Need" Width="1.5" PointX="5.25" PointY="11" IsExpanded="true" />
-        <EntityTypeShape EntityType="BodrumModel.Needs_OperationType" Width="1.5" PointX="7.5" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="BodrumModel.Notification" Width="1.5" PointX="9.75" PointY="7.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="BodrumModel.Operation" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="BodrumModel.Role" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BodrumModel.User" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BodrumModel.UserCommentOnItem" Width="1.5" PointX="7.5" PointY="10.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BodrumModel.UserMobile" Width="1.5" PointX="5.25" PointY="14.25" IsExpanded="true" />
-        <AssociationConnector Association="BodrumModel.FK__Item__fk_categor__29572725" ManuallyRouted="false" />
-        <AssociationConnector Association="BodrumModel.FK__Comment__fk_pare__3E52440B" ManuallyRouted="false" />
-        <AssociationConnector Association="BodrumModel.FK__UserComme__fk_co__4316F928" ManuallyRouted="false" />
-        <AssociationConnector Association="BodrumModel.FK__Item__fk_userId__286302EC" ManuallyRouted="false" />
-        <AssociationConnector Association="BodrumModel.FK__Item_Oper__fk_it__2D27B809" ManuallyRouted="false" />
-        <AssociationConnector Association="BodrumModel.FK__Needs_Ope__fk_it__38996AB5" ManuallyRouted="false" />
-        <AssociationConnector Association="BodrumModel.FK__UserComme__fk_it__440B1D61" ManuallyRouted="false" />
-        <AssociationConnector Association="BodrumModel.FK__Item_Oper__fk_op__2E1BDC42" ManuallyRouted="false" />
-        <AssociationConnector Association="BodrumModel.FK__Needs__fk_userId__34C8D9D1" ManuallyRouted="false" />
-        <AssociationConnector Association="BodrumModel.FK__Needs_Ope__fk_op__398D8EEE" ManuallyRouted="false" />
-        <AssociationConnector Association="BodrumModel.FK__Notificat__fk_us__4AB81AF0" ManuallyRouted="false" />
-        <AssociationConnector Association="BodrumModel.FK__Notificat__from___47DBAE45" ManuallyRouted="false" />
-        <AssociationConnector Association="BodrumModel.FK__Notificat__to_us__48CFD27E" ManuallyRouted="false" />
-        <AssociationConnector Association="BodrumModel.FK__User__fk_roleId__173876EA" ManuallyRouted="false" />
-        <AssociationConnector Association="BodrumModel.FK__UserComme__fk_us__4222D4EF" ManuallyRouted="false" />
-        <AssociationConnector Association="BodrumModel.FK__UserMobil__fk_us__1A14E395" ManuallyRouted="false" />
+      <Diagram DiagramId="ef563306a86c424dbadff3fb9a8e0bf5" Name="Diagram1">
+        <EntityTypeShape EntityType="BodrumModel.Category" Width="1.5" PointX="7.5" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BodrumModel.City" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BodrumModel.Comment" Width="1.5" PointX="9.75" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BodrumModel.Country" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BodrumModel.Item" Width="1.5" PointX="9.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BodrumModel.Item_Operation" Width="1.5" PointX="12" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BodrumModel.Need" Width="1.5" PointX="9.75" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="BodrumModel.Needs_OperationType" Width="1.5" PointX="12" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BodrumModel.Notification" Width="1.5" PointX="14.25" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BodrumModel.Operation" Width="1.5" PointX="9.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BodrumModel.Region" Width="1.5" PointX="5.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BodrumModel.Role" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BodrumModel.User" Width="1.5" PointX="7.5" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BodrumModel.UserCommentOnItem" Width="1.5" PointX="12" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BodrumModel.UserMobile" Width="1.5" PointX="9.75" PointY="14.25" IsExpanded="true" />
+        <AssociationConnector Association="BodrumModel.FK__Item__fk_categor__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="BodrumModel.FK__City__fk_country__164452B1" ManuallyRouted="false" />
+        <AssociationConnector Association="BodrumModel.FK__Region__fk_cityI__1B0907CE" ManuallyRouted="false" />
+        <AssociationConnector Association="BodrumModel.FK__User__fk_cityId__25869641" ManuallyRouted="false" />
+        <AssociationConnector Association="BodrumModel.FK__Comment__fk_pare__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="BodrumModel.FK__UserComme__fk_co__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="BodrumModel.FK__User__fk_country__24927208" ManuallyRouted="false" />
+        <AssociationConnector Association="BodrumModel.FK__Item__fk_userId__38996AB5" ManuallyRouted="false" />
+        <AssociationConnector Association="BodrumModel.FK__Item_Oper__fk_it__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="BodrumModel.FK__Needs_Ope__fk_it__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="BodrumModel.FK__UserComme__fk_it__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="BodrumModel.FK__Item_Oper__fk_op__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="BodrumModel.FK__Needs__fk_userId__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="BodrumModel.FK__Needs_Ope__fk_op__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="BodrumModel.FK__Notificat__fk_us__5AEE82B9" ManuallyRouted="false" />
+        <AssociationConnector Association="BodrumModel.FK__Notificat__from___5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="BodrumModel.FK__Notificat__to_us__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="BodrumModel.FK__User__fk_regionI__267ABA7A" ManuallyRouted="false" />
+        <AssociationConnector Association="BodrumModel.FK__User__fk_roleId__276EDEB3" ManuallyRouted="false" />
+        <AssociationConnector Association="BodrumModel.FK__UserComme__fk_us__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="BodrumModel.FK__UserMobil__fk_us__2A4B4B5E" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

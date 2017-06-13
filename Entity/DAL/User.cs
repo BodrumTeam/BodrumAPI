@@ -30,16 +30,18 @@ namespace Entity.DAL
         public string username { get; set; }
         public string password { get; set; }
         public string email { get; set; }
-        public string country { get; set; }
-        public string city { get; set; }
         public string mobile { get; set; }
-        public string region { get; set; }
         public string photo { get; set; }
         public string gender { get; set; }
         public Nullable<int> age { get; set; }
         public Nullable<bool> isDeleted { get; set; }
+        public Nullable<int> fk_countryId { get; set; }
+        public Nullable<int> fk_cityId { get; set; }
+        public Nullable<int> fk_regionId { get; set; }
         public Nullable<int> fk_roleId { get; set; }
     
+        public virtual City City { get; set; }
+        public virtual Country Country { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Item> Items { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -48,6 +50,7 @@ namespace Entity.DAL
         public virtual ICollection<Notification> Notifications { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Notification> Notifications1 { get; set; }
+        public virtual Region Region { get; set; }
         public virtual Role Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserCommentOnItem> UserCommentOnItems { get; set; }
