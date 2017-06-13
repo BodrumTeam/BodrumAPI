@@ -17,6 +17,7 @@ namespace Entity.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
+            this.Items = new HashSet<Item>();
             this.Needs = new HashSet<Need>();
             this.Notifications = new HashSet<Notification>();
             this.Notifications1 = new HashSet<Notification>();
@@ -31,6 +32,7 @@ namespace Entity.DAL
         public string email { get; set; }
         public string country { get; set; }
         public string city { get; set; }
+        public string mobile { get; set; }
         public string region { get; set; }
         public string photo { get; set; }
         public string gender { get; set; }
@@ -38,6 +40,8 @@ namespace Entity.DAL
         public Nullable<bool> isDeleted { get; set; }
         public Nullable<int> fk_roleId { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Item> Items { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Need> Needs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

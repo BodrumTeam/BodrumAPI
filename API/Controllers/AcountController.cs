@@ -6,7 +6,6 @@ using System.Net.Http;
 using System.Web.Http;
 using API.JsonWebToken;
 using API.DTO;
-using API.BLL.Managers;
 using API.BLL.UnitOFWork;
 using API.Enum;
 using Entity.DAL;
@@ -17,20 +16,20 @@ namespace API.Controllers
     public class AcountController : ApiController
     {
         private UnitOfWork uow = new UnitOfWork();
+        
         // GET: rpc/acount/getAll
         [Route("getAll")]
         public IEnumerable<User> Get()
         {
             List<User> users = uow.UserManager.GetAll().ToList();
             return users;
-            //string s = Token.GenerateToken("hassona", 20);
-            //return new List<string> { "value1", "value2" };
         }
 
         // GET: rpc/acount/5
-        public string Get(int id)
+        [Route("getById/{id}")]
+        public User Get(int id)
         {
-            return "value";
+            return uow.UserManager.GetById(id);
         }
 
         // POST: rpc/account/login
@@ -63,7 +62,6 @@ namespace API.Controllers
               return  Request.CreateResponse(HttpStatusCode.InternalServerError, RegisterResult.ToString());
             }
         }
-
 
         // PUT: rpc/account/5
         public void Put(int id, [FromBody]string value)

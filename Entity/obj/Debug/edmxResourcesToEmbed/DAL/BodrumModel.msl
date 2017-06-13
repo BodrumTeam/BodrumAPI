@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="BodrumModelStoreContainer" CdmEntityContainer="BodrumEntities">
+  <EntityContainerMapping StorageEntityContainer="BodrumModelStoreContainer" CdmEntityContainer="BodrumEntities1">
     <EntitySetMapping Name="Categories">
       <EntityTypeMapping TypeName="BodrumModel.Category">
         <MappingFragment StoreEntitySet="Category">
@@ -34,6 +34,7 @@
           <ScalarProperty Name="isApproved" ColumnName="isApproved" />
           <ScalarProperty Name="isAvailable" ColumnName="isAvailable" />
           <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+          <ScalarProperty Name="fk_userId" ColumnName="fk_userId" />
           <ScalarProperty Name="fk_categoryId" ColumnName="fk_categoryId" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -111,6 +112,7 @@
           <ScalarProperty Name="email" ColumnName="email" />
           <ScalarProperty Name="country" ColumnName="country" />
           <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
           <ScalarProperty Name="region" ColumnName="region" />
           <ScalarProperty Name="photo" ColumnName="photo" />
           <ScalarProperty Name="gender" ColumnName="gender" />

@@ -15,9 +15,6 @@ namespace API.BLL.Managers
         public UserManager() : this(new BodrumEntities())
         {
         }
-
-        
-
         public UserLogin userLogin { get; set; }
         public RegisterResult RegisterResult { get; set; }
         public bool IsUserExist(UserLogin userLogin)

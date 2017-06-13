@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="BodrumModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="BodrumModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="id" />
@@ -37,6 +37,7 @@
           <Property Name="isApproved" Type="bit" />
           <Property Name="isAvailable" Type="bit" />
           <Property Name="isDeleted" Type="bit" />
+          <Property Name="fk_userId" Type="int" />
           <Property Name="fk_categoryId" Type="int" />
         </EntityType>
         <EntityType Name="Item_Operation">
@@ -107,6 +108,7 @@
           <Property Name="email" Type="nvarchar" MaxLength="50" />
           <Property Name="country" Type="nvarchar" MaxLength="50" />
           <Property Name="city" Type="nvarchar" MaxLength="50" />
+          <Property Name="mobile" Type="nvarchar" MaxLength="50" />
           <Property Name="region" Type="nvarchar" MaxLength="50" />
           <Property Name="photo" Type="nvarchar" MaxLength="500" />
           <Property Name="gender" Type="nvarchar" MaxLength="50" />
@@ -131,7 +133,7 @@
           <Property Name="mobile" Type="int" />
           <Property Name="fk_userId" Type="int" />
         </EntityType>
-        <Association Name="FK__Comment__fk_pare__3D5E1FD2">
+        <Association Name="FK__Comment__fk_pare__3E52440B">
           <End Role="Comment" Type="Self.Comment" Multiplicity="0..1" />
           <End Role="Comment1" Type="Self.Comment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -143,7 +145,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Item__fk_categor__286302EC">
+        <Association Name="FK__Item__fk_categor__29572725">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
           <End Role="Item" Type="Self.Item" Multiplicity="*" />
           <ReferentialConstraint>
@@ -155,7 +157,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Item_Oper__fk_it__2C3393D0">
+        <Association Name="FK__Item__fk_userId__286302EC">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="fk_userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Item_Oper__fk_it__2D27B809">
           <End Role="Item" Type="Self.Item" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -169,7 +183,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Item_Oper__fk_op__2D27B809">
+        <Association Name="FK__Item_Oper__fk_op__2E1BDC42">
           <End Role="Operation" Type="Self.Operation" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -183,7 +197,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Needs__fk_userId__33D4B598">
+        <Association Name="FK__Needs__fk_userId__34C8D9D1">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Needs" Type="Self.Needs" Multiplicity="*" />
           <ReferentialConstraint>
@@ -195,7 +209,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Needs_Ope__fk_it__37A5467C">
+        <Association Name="FK__Needs_Ope__fk_it__38996AB5">
           <End Role="Item" Type="Self.Item" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -209,7 +223,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Needs_Ope__fk_op__38996AB5">
+        <Association Name="FK__Needs_Ope__fk_op__398D8EEE">
           <End Role="Operation" Type="Self.Operation" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -223,7 +237,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__fk_us__49C3F6B7">
+        <Association Name="FK__Notificat__fk_us__4AB81AF0">
           <End Role="UserCommentOnItem" Type="Self.UserCommentOnItem" Multiplicity="0..1" />
           <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -235,7 +249,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__from___46E78A0C">
+        <Association Name="FK__Notificat__from___47DBAE45">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -247,7 +261,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__to_us__47DBAE45">
+        <Association Name="FK__Notificat__to_us__48CFD27E">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -271,7 +285,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserComme__fk_co__4222D4EF">
+        <Association Name="FK__UserComme__fk_co__4316F928">
           <End Role="Comment" Type="Self.Comment" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -285,7 +299,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserComme__fk_it__4316F928">
+        <Association Name="FK__UserComme__fk_it__440B1D61">
           <End Role="Item" Type="Self.Item" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -299,7 +313,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserComme__fk_us__412EB0B6">
+        <Association Name="FK__UserComme__fk_us__4222D4EF">
           <End Role="User" Type="Self.User" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -338,43 +352,47 @@
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserCommentOnItem" EntityType="Self.UserCommentOnItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserMobile" EntityType="Self.UserMobile" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Comment__fk_pare__3D5E1FD2" Association="Self.FK__Comment__fk_pare__3D5E1FD2">
+          <AssociationSet Name="FK__Comment__fk_pare__3E52440B" Association="Self.FK__Comment__fk_pare__3E52440B">
             <End Role="Comment" EntitySet="Comment" />
             <End Role="Comment1" EntitySet="Comment" />
           </AssociationSet>
-          <AssociationSet Name="FK__Item__fk_categor__286302EC" Association="Self.FK__Item__fk_categor__286302EC">
+          <AssociationSet Name="FK__Item__fk_categor__29572725" Association="Self.FK__Item__fk_categor__29572725">
             <End Role="Category" EntitySet="Category" />
             <End Role="Item" EntitySet="Item" />
           </AssociationSet>
-          <AssociationSet Name="FK__Item_Oper__fk_it__2C3393D0" Association="Self.FK__Item_Oper__fk_it__2C3393D0">
+          <AssociationSet Name="FK__Item__fk_userId__286302EC" Association="Self.FK__Item__fk_userId__286302EC">
+            <End Role="User" EntitySet="User" />
+            <End Role="Item" EntitySet="Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Item_Oper__fk_it__2D27B809" Association="Self.FK__Item_Oper__fk_it__2D27B809">
             <End Role="Item" EntitySet="Item" />
             <End Role="Item_Operation" EntitySet="Item_Operation" />
           </AssociationSet>
-          <AssociationSet Name="FK__Item_Oper__fk_op__2D27B809" Association="Self.FK__Item_Oper__fk_op__2D27B809">
+          <AssociationSet Name="FK__Item_Oper__fk_op__2E1BDC42" Association="Self.FK__Item_Oper__fk_op__2E1BDC42">
             <End Role="Operation" EntitySet="Operation" />
             <End Role="Item_Operation" EntitySet="Item_Operation" />
           </AssociationSet>
-          <AssociationSet Name="FK__Needs__fk_userId__33D4B598" Association="Self.FK__Needs__fk_userId__33D4B598">
+          <AssociationSet Name="FK__Needs__fk_userId__34C8D9D1" Association="Self.FK__Needs__fk_userId__34C8D9D1">
             <End Role="User" EntitySet="User" />
             <End Role="Needs" EntitySet="Needs" />
           </AssociationSet>
-          <AssociationSet Name="FK__Needs_Ope__fk_it__37A5467C" Association="Self.FK__Needs_Ope__fk_it__37A5467C">
+          <AssociationSet Name="FK__Needs_Ope__fk_it__38996AB5" Association="Self.FK__Needs_Ope__fk_it__38996AB5">
             <End Role="Item" EntitySet="Item" />
             <End Role="Needs_OperationType" EntitySet="Needs_OperationType" />
           </AssociationSet>
-          <AssociationSet Name="FK__Needs_Ope__fk_op__38996AB5" Association="Self.FK__Needs_Ope__fk_op__38996AB5">
+          <AssociationSet Name="FK__Needs_Ope__fk_op__398D8EEE" Association="Self.FK__Needs_Ope__fk_op__398D8EEE">
             <End Role="Operation" EntitySet="Operation" />
             <End Role="Needs_OperationType" EntitySet="Needs_OperationType" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__fk_us__49C3F6B7" Association="Self.FK__Notificat__fk_us__49C3F6B7">
+          <AssociationSet Name="FK__Notificat__fk_us__4AB81AF0" Association="Self.FK__Notificat__fk_us__4AB81AF0">
             <End Role="UserCommentOnItem" EntitySet="UserCommentOnItem" />
             <End Role="Notification" EntitySet="Notification" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__from___46E78A0C" Association="Self.FK__Notificat__from___46E78A0C">
+          <AssociationSet Name="FK__Notificat__from___47DBAE45" Association="Self.FK__Notificat__from___47DBAE45">
             <End Role="User" EntitySet="User" />
             <End Role="Notification" EntitySet="Notification" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__to_us__47DBAE45" Association="Self.FK__Notificat__to_us__47DBAE45">
+          <AssociationSet Name="FK__Notificat__to_us__48CFD27E" Association="Self.FK__Notificat__to_us__48CFD27E">
             <End Role="User" EntitySet="User" />
             <End Role="Notification" EntitySet="Notification" />
           </AssociationSet>
@@ -382,15 +400,15 @@
             <End Role="Role" EntitySet="Role" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserComme__fk_co__4222D4EF" Association="Self.FK__UserComme__fk_co__4222D4EF">
+          <AssociationSet Name="FK__UserComme__fk_co__4316F928" Association="Self.FK__UserComme__fk_co__4316F928">
             <End Role="Comment" EntitySet="Comment" />
             <End Role="UserCommentOnItem" EntitySet="UserCommentOnItem" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserComme__fk_it__4316F928" Association="Self.FK__UserComme__fk_it__4316F928">
+          <AssociationSet Name="FK__UserComme__fk_it__440B1D61" Association="Self.FK__UserComme__fk_it__440B1D61">
             <End Role="Item" EntitySet="Item" />
             <End Role="UserCommentOnItem" EntitySet="UserCommentOnItem" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserComme__fk_us__412EB0B6" Association="Self.FK__UserComme__fk_us__412EB0B6">
+          <AssociationSet Name="FK__UserComme__fk_us__4222D4EF" Association="Self.FK__UserComme__fk_us__4222D4EF">
             <End Role="User" EntitySet="User" />
             <End Role="UserCommentOnItem" EntitySet="UserCommentOnItem" />
           </AssociationSet>
@@ -399,7 +417,8 @@
             <End Role="UserMobile" EntitySet="UserMobile" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BodrumModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -411,7 +430,7 @@
           <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="description" Type="String" MaxLength="800" FixedLength="false" Unicode="true" />
           <Property Name="isDeleted" Type="Boolean" />
-          <NavigationProperty Name="Items" Relationship="Self.FK__Item__fk_categor__286302EC" FromRole="Category" ToRole="Item" />
+          <NavigationProperty Name="Items" Relationship="Self.FK__Item__fk_categor__29572725" FromRole="Category" ToRole="Item" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -422,9 +441,9 @@
           <Property Name="date" Type="DateTime" Precision="3" />
           <Property Name="isDeleted" Type="Boolean" />
           <Property Name="fk_parentcommentId" Type="Int32" />
-          <NavigationProperty Name="Comment1" Relationship="Self.FK__Comment__fk_pare__3D5E1FD2" FromRole="Comment" ToRole="Comment1" />
-          <NavigationProperty Name="Comment2" Relationship="Self.FK__Comment__fk_pare__3D5E1FD2" FromRole="Comment1" ToRole="Comment" />
-          <NavigationProperty Name="UserCommentOnItems" Relationship="Self.FK__UserComme__fk_co__4222D4EF" FromRole="Comment" ToRole="UserCommentOnItem" />
+          <NavigationProperty Name="Comment1" Relationship="Self.FK__Comment__fk_pare__3E52440B" FromRole="Comment" ToRole="Comment1" />
+          <NavigationProperty Name="Comment2" Relationship="Self.FK__Comment__fk_pare__3E52440B" FromRole="Comment1" ToRole="Comment" />
+          <NavigationProperty Name="UserCommentOnItems" Relationship="Self.FK__UserComme__fk_co__4316F928" FromRole="Comment" ToRole="UserCommentOnItem" />
         </EntityType>
         <EntityType Name="Item">
           <Key>
@@ -439,11 +458,13 @@
           <Property Name="isApproved" Type="Boolean" />
           <Property Name="isAvailable" Type="Boolean" />
           <Property Name="isDeleted" Type="Boolean" />
+          <Property Name="fk_userId" Type="Int32" />
           <Property Name="fk_categoryId" Type="Int32" />
-          <NavigationProperty Name="Category" Relationship="Self.FK__Item__fk_categor__286302EC" FromRole="Item" ToRole="Category" />
-          <NavigationProperty Name="Item_Operation" Relationship="Self.FK__Item_Oper__fk_it__2C3393D0" FromRole="Item" ToRole="Item_Operation" />
-          <NavigationProperty Name="Needs_OperationType" Relationship="Self.FK__Needs_Ope__fk_it__37A5467C" FromRole="Item" ToRole="Needs_OperationType" />
-          <NavigationProperty Name="UserCommentOnItems" Relationship="Self.FK__UserComme__fk_it__4316F928" FromRole="Item" ToRole="UserCommentOnItem" />
+          <NavigationProperty Name="Category" Relationship="Self.FK__Item__fk_categor__29572725" FromRole="Item" ToRole="Category" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Item__fk_userId__286302EC" FromRole="Item" ToRole="User" />
+          <NavigationProperty Name="Item_Operation" Relationship="Self.FK__Item_Oper__fk_it__2D27B809" FromRole="Item" ToRole="Item_Operation" />
+          <NavigationProperty Name="Needs_OperationType" Relationship="Self.FK__Needs_Ope__fk_it__38996AB5" FromRole="Item" ToRole="Needs_OperationType" />
+          <NavigationProperty Name="UserCommentOnItems" Relationship="Self.FK__UserComme__fk_it__440B1D61" FromRole="Item" ToRole="UserCommentOnItem" />
         </EntityType>
         <EntityType Name="Item_Operation">
           <Key>
@@ -452,8 +473,8 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="fk_itemId" Type="Int32" />
           <Property Name="fk_operationId" Type="Int32" />
-          <NavigationProperty Name="Item" Relationship="Self.FK__Item_Oper__fk_it__2C3393D0" FromRole="Item_Operation" ToRole="Item" />
-          <NavigationProperty Name="Operation" Relationship="Self.FK__Item_Oper__fk_op__2D27B809" FromRole="Item_Operation" ToRole="Operation" />
+          <NavigationProperty Name="Item" Relationship="Self.FK__Item_Oper__fk_it__2D27B809" FromRole="Item_Operation" ToRole="Item" />
+          <NavigationProperty Name="Operation" Relationship="Self.FK__Item_Oper__fk_op__2E1BDC42" FromRole="Item_Operation" ToRole="Operation" />
         </EntityType>
         <EntityType Name="Need">
           <Key>
@@ -466,7 +487,7 @@
           <Property Name="isAvailable" Type="Boolean" />
           <Property Name="isDeleted" Type="Boolean" />
           <Property Name="fk_userId" Type="Int32" />
-          <NavigationProperty Name="User" Relationship="Self.FK__Needs__fk_userId__33D4B598" FromRole="Needs" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Needs__fk_userId__34C8D9D1" FromRole="Needs" ToRole="User" />
         </EntityType>
         <EntityType Name="Needs_OperationType">
           <Key>
@@ -475,8 +496,8 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="fk_itemId" Type="Int32" />
           <Property Name="fk_operationId" Type="Int32" />
-          <NavigationProperty Name="Item" Relationship="Self.FK__Needs_Ope__fk_it__37A5467C" FromRole="Needs_OperationType" ToRole="Item" />
-          <NavigationProperty Name="Operation" Relationship="Self.FK__Needs_Ope__fk_op__38996AB5" FromRole="Needs_OperationType" ToRole="Operation" />
+          <NavigationProperty Name="Item" Relationship="Self.FK__Needs_Ope__fk_it__38996AB5" FromRole="Needs_OperationType" ToRole="Item" />
+          <NavigationProperty Name="Operation" Relationship="Self.FK__Needs_Ope__fk_op__398D8EEE" FromRole="Needs_OperationType" ToRole="Operation" />
         </EntityType>
         <EntityType Name="Notification">
           <Key>
@@ -489,9 +510,9 @@
           <Property Name="to_userId" Type="Int32" />
           <Property Name="isDeleted" Type="Boolean" />
           <Property Name="fk_userCommentOnItem" Type="Int32" />
-          <NavigationProperty Name="UserCommentOnItem" Relationship="Self.FK__Notificat__fk_us__49C3F6B7" FromRole="Notification" ToRole="UserCommentOnItem" />
-          <NavigationProperty Name="User" Relationship="Self.FK__Notificat__from___46E78A0C" FromRole="Notification" ToRole="User" />
-          <NavigationProperty Name="User1" Relationship="Self.FK__Notificat__to_us__47DBAE45" FromRole="Notification" ToRole="User" />
+          <NavigationProperty Name="UserCommentOnItem" Relationship="Self.FK__Notificat__fk_us__4AB81AF0" FromRole="Notification" ToRole="UserCommentOnItem" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Notificat__from___47DBAE45" FromRole="Notification" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="Self.FK__Notificat__to_us__48CFD27E" FromRole="Notification" ToRole="User" />
         </EntityType>
         <EntityType Name="Operation">
           <Key>
@@ -501,8 +522,8 @@
           <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="description" Type="String" MaxLength="800" FixedLength="false" Unicode="true" />
           <Property Name="isDeleted" Type="Boolean" />
-          <NavigationProperty Name="Item_Operation" Relationship="Self.FK__Item_Oper__fk_op__2D27B809" FromRole="Operation" ToRole="Item_Operation" />
-          <NavigationProperty Name="Needs_OperationType" Relationship="Self.FK__Needs_Ope__fk_op__38996AB5" FromRole="Operation" ToRole="Needs_OperationType" />
+          <NavigationProperty Name="Item_Operation" Relationship="Self.FK__Item_Oper__fk_op__2E1BDC42" FromRole="Operation" ToRole="Item_Operation" />
+          <NavigationProperty Name="Needs_OperationType" Relationship="Self.FK__Needs_Ope__fk_op__398D8EEE" FromRole="Operation" ToRole="Needs_OperationType" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -524,17 +545,19 @@
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="region" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="photo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="age" Type="Int32" />
           <Property Name="isDeleted" Type="Boolean" />
           <Property Name="fk_roleId" Type="Int32" />
-          <NavigationProperty Name="Needs" Relationship="Self.FK__Needs__fk_userId__33D4B598" FromRole="User" ToRole="Needs" />
-          <NavigationProperty Name="Notifications" Relationship="Self.FK__Notificat__from___46E78A0C" FromRole="User" ToRole="Notification" />
-          <NavigationProperty Name="Notifications1" Relationship="Self.FK__Notificat__to_us__47DBAE45" FromRole="User" ToRole="Notification" />
+          <NavigationProperty Name="Items" Relationship="Self.FK__Item__fk_userId__286302EC" FromRole="User" ToRole="Item" />
+          <NavigationProperty Name="Needs" Relationship="Self.FK__Needs__fk_userId__34C8D9D1" FromRole="User" ToRole="Needs" />
+          <NavigationProperty Name="Notifications" Relationship="Self.FK__Notificat__from___47DBAE45" FromRole="User" ToRole="Notification" />
+          <NavigationProperty Name="Notifications1" Relationship="Self.FK__Notificat__to_us__48CFD27E" FromRole="User" ToRole="Notification" />
           <NavigationProperty Name="Role" Relationship="Self.FK__User__fk_roleId__173876EA" FromRole="User" ToRole="Role" />
-          <NavigationProperty Name="UserCommentOnItems" Relationship="Self.FK__UserComme__fk_us__412EB0B6" FromRole="User" ToRole="UserCommentOnItem" />
+          <NavigationProperty Name="UserCommentOnItems" Relationship="Self.FK__UserComme__fk_us__4222D4EF" FromRole="User" ToRole="UserCommentOnItem" />
           <NavigationProperty Name="UserMobiles" Relationship="Self.FK__UserMobil__fk_us__1A14E395" FromRole="User" ToRole="UserMobile" />
         </EntityType>
         <EntityType Name="UserCommentOnItem">
@@ -545,10 +568,10 @@
           <Property Name="fk_userId" Type="Int32" />
           <Property Name="fk_commentId" Type="Int32" />
           <Property Name="fk_itemId" Type="Int32" />
-          <NavigationProperty Name="Comment" Relationship="Self.FK__UserComme__fk_co__4222D4EF" FromRole="UserCommentOnItem" ToRole="Comment" />
-          <NavigationProperty Name="Item" Relationship="Self.FK__UserComme__fk_it__4316F928" FromRole="UserCommentOnItem" ToRole="Item" />
-          <NavigationProperty Name="Notifications" Relationship="Self.FK__Notificat__fk_us__49C3F6B7" FromRole="UserCommentOnItem" ToRole="Notification" />
-          <NavigationProperty Name="User" Relationship="Self.FK__UserComme__fk_us__412EB0B6" FromRole="UserCommentOnItem" ToRole="User" />
+          <NavigationProperty Name="Comment" Relationship="Self.FK__UserComme__fk_co__4316F928" FromRole="UserCommentOnItem" ToRole="Comment" />
+          <NavigationProperty Name="Item" Relationship="Self.FK__UserComme__fk_it__440B1D61" FromRole="UserCommentOnItem" ToRole="Item" />
+          <NavigationProperty Name="Notifications" Relationship="Self.FK__Notificat__fk_us__4AB81AF0" FromRole="UserCommentOnItem" ToRole="Notification" />
+          <NavigationProperty Name="User" Relationship="Self.FK__UserComme__fk_us__4222D4EF" FromRole="UserCommentOnItem" ToRole="User" />
         </EntityType>
         <EntityType Name="UserMobile">
           <Key>
@@ -559,7 +582,7 @@
           <Property Name="fk_userId" Type="Int32" />
           <NavigationProperty Name="User" Relationship="Self.FK__UserMobil__fk_us__1A14E395" FromRole="UserMobile" ToRole="User" />
         </EntityType>
-        <Association Name="FK__Item__fk_categor__286302EC">
+        <Association Name="FK__Item__fk_categor__29572725">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
           <End Role="Item" Type="Self.Item" Multiplicity="*" />
           <ReferentialConstraint>
@@ -571,7 +594,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Comment__fk_pare__3D5E1FD2">
+        <Association Name="FK__Comment__fk_pare__3E52440B">
           <End Role="Comment" Type="Self.Comment" Multiplicity="0..1" />
           <End Role="Comment1" Type="Self.Comment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -583,7 +606,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserComme__fk_co__4222D4EF">
+        <Association Name="FK__UserComme__fk_co__4316F928">
           <End Role="Comment" Type="Self.Comment" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -597,7 +620,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Item_Oper__fk_it__2C3393D0">
+        <Association Name="FK__Item__fk_userId__286302EC">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="fk_userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Item_Oper__fk_it__2D27B809">
           <End Role="Item" Type="Self.Item" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -611,7 +646,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Needs_Ope__fk_it__37A5467C">
+        <Association Name="FK__Needs_Ope__fk_it__38996AB5">
           <End Role="Item" Type="Self.Item" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -625,7 +660,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserComme__fk_it__4316F928">
+        <Association Name="FK__UserComme__fk_it__440B1D61">
           <End Role="Item" Type="Self.Item" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -639,7 +674,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Item_Oper__fk_op__2D27B809">
+        <Association Name="FK__Item_Oper__fk_op__2E1BDC42">
           <End Role="Operation" Type="Self.Operation" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -653,7 +688,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Needs__fk_userId__33D4B598">
+        <Association Name="FK__Needs__fk_userId__34C8D9D1">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Needs" Type="Self.Need" Multiplicity="*" />
           <ReferentialConstraint>
@@ -665,7 +700,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Needs_Ope__fk_op__38996AB5">
+        <Association Name="FK__Needs_Ope__fk_op__398D8EEE">
           <End Role="Operation" Type="Self.Operation" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -679,7 +714,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__fk_us__49C3F6B7">
+        <Association Name="FK__Notificat__fk_us__4AB81AF0">
           <End Role="UserCommentOnItem" Type="Self.UserCommentOnItem" Multiplicity="0..1" />
           <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -691,7 +726,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__from___46E78A0C">
+        <Association Name="FK__Notificat__from___47DBAE45">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -703,7 +738,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__to_us__47DBAE45">
+        <Association Name="FK__Notificat__to_us__48CFD27E">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -727,7 +762,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserComme__fk_us__412EB0B6">
+        <Association Name="FK__UserComme__fk_us__4222D4EF">
           <End Role="User" Type="Self.User" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -753,7 +788,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="BodrumEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="BodrumEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Comments" EntityType="Self.Comment" />
           <EntitySet Name="Items" EntityType="Self.Item" />
@@ -766,51 +801,55 @@
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="UserCommentOnItems" EntityType="Self.UserCommentOnItem" />
           <EntitySet Name="UserMobiles" EntityType="Self.UserMobile" />
-          <AssociationSet Name="FK__Item__fk_categor__286302EC" Association="Self.FK__Item__fk_categor__286302EC">
+          <AssociationSet Name="FK__Item__fk_categor__29572725" Association="Self.FK__Item__fk_categor__29572725">
             <End Role="Category" EntitySet="Categories" />
             <End Role="Item" EntitySet="Items" />
           </AssociationSet>
-          <AssociationSet Name="FK__Comment__fk_pare__3D5E1FD2" Association="Self.FK__Comment__fk_pare__3D5E1FD2">
+          <AssociationSet Name="FK__Comment__fk_pare__3E52440B" Association="Self.FK__Comment__fk_pare__3E52440B">
             <End Role="Comment" EntitySet="Comments" />
             <End Role="Comment1" EntitySet="Comments" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserComme__fk_co__4222D4EF" Association="Self.FK__UserComme__fk_co__4222D4EF">
+          <AssociationSet Name="FK__UserComme__fk_co__4316F928" Association="Self.FK__UserComme__fk_co__4316F928">
             <End Role="Comment" EntitySet="Comments" />
             <End Role="UserCommentOnItem" EntitySet="UserCommentOnItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__Item_Oper__fk_it__2C3393D0" Association="Self.FK__Item_Oper__fk_it__2C3393D0">
+          <AssociationSet Name="FK__Item__fk_userId__286302EC" Association="Self.FK__Item__fk_userId__286302EC">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Item" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Item_Oper__fk_it__2D27B809" Association="Self.FK__Item_Oper__fk_it__2D27B809">
             <End Role="Item" EntitySet="Items" />
             <End Role="Item_Operation" EntitySet="Item_Operation" />
           </AssociationSet>
-          <AssociationSet Name="FK__Needs_Ope__fk_it__37A5467C" Association="Self.FK__Needs_Ope__fk_it__37A5467C">
+          <AssociationSet Name="FK__Needs_Ope__fk_it__38996AB5" Association="Self.FK__Needs_Ope__fk_it__38996AB5">
             <End Role="Item" EntitySet="Items" />
             <End Role="Needs_OperationType" EntitySet="Needs_OperationType" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserComme__fk_it__4316F928" Association="Self.FK__UserComme__fk_it__4316F928">
+          <AssociationSet Name="FK__UserComme__fk_it__440B1D61" Association="Self.FK__UserComme__fk_it__440B1D61">
             <End Role="Item" EntitySet="Items" />
             <End Role="UserCommentOnItem" EntitySet="UserCommentOnItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__Item_Oper__fk_op__2D27B809" Association="Self.FK__Item_Oper__fk_op__2D27B809">
+          <AssociationSet Name="FK__Item_Oper__fk_op__2E1BDC42" Association="Self.FK__Item_Oper__fk_op__2E1BDC42">
             <End Role="Operation" EntitySet="Operations" />
             <End Role="Item_Operation" EntitySet="Item_Operation" />
           </AssociationSet>
-          <AssociationSet Name="FK__Needs__fk_userId__33D4B598" Association="Self.FK__Needs__fk_userId__33D4B598">
+          <AssociationSet Name="FK__Needs__fk_userId__34C8D9D1" Association="Self.FK__Needs__fk_userId__34C8D9D1">
             <End Role="User" EntitySet="Users" />
             <End Role="Needs" EntitySet="Needs" />
           </AssociationSet>
-          <AssociationSet Name="FK__Needs_Ope__fk_op__38996AB5" Association="Self.FK__Needs_Ope__fk_op__38996AB5">
+          <AssociationSet Name="FK__Needs_Ope__fk_op__398D8EEE" Association="Self.FK__Needs_Ope__fk_op__398D8EEE">
             <End Role="Operation" EntitySet="Operations" />
             <End Role="Needs_OperationType" EntitySet="Needs_OperationType" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__fk_us__49C3F6B7" Association="Self.FK__Notificat__fk_us__49C3F6B7">
+          <AssociationSet Name="FK__Notificat__fk_us__4AB81AF0" Association="Self.FK__Notificat__fk_us__4AB81AF0">
             <End Role="UserCommentOnItem" EntitySet="UserCommentOnItems" />
             <End Role="Notification" EntitySet="Notifications" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__from___46E78A0C" Association="Self.FK__Notificat__from___46E78A0C">
+          <AssociationSet Name="FK__Notificat__from___47DBAE45" Association="Self.FK__Notificat__from___47DBAE45">
             <End Role="User" EntitySet="Users" />
             <End Role="Notification" EntitySet="Notifications" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__to_us__47DBAE45" Association="Self.FK__Notificat__to_us__47DBAE45">
+          <AssociationSet Name="FK__Notificat__to_us__48CFD27E" Association="Self.FK__Notificat__to_us__48CFD27E">
             <End Role="User" EntitySet="Users" />
             <End Role="Notification" EntitySet="Notifications" />
           </AssociationSet>
@@ -818,7 +857,7 @@
             <End Role="Role" EntitySet="Roles" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserComme__fk_us__412EB0B6" Association="Self.FK__UserComme__fk_us__412EB0B6">
+          <AssociationSet Name="FK__UserComme__fk_us__4222D4EF" Association="Self.FK__UserComme__fk_us__4222D4EF">
             <End Role="User" EntitySet="Users" />
             <End Role="UserCommentOnItem" EntitySet="UserCommentOnItems" />
           </AssociationSet>
@@ -832,7 +871,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="BodrumModelStoreContainer" CdmEntityContainer="BodrumEntities">
+        <EntityContainerMapping StorageEntityContainer="BodrumModelStoreContainer" CdmEntityContainer="BodrumEntities1">
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="BodrumModel.Category">
               <MappingFragment StoreEntitySet="Category">
@@ -866,6 +905,7 @@
                 <ScalarProperty Name="isApproved" ColumnName="isApproved" />
                 <ScalarProperty Name="isAvailable" ColumnName="isAvailable" />
                 <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="fk_userId" ColumnName="fk_userId" />
                 <ScalarProperty Name="fk_categoryId" ColumnName="fk_categoryId" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -943,6 +983,7 @@
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="country" ColumnName="country" />
                 <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
                 <ScalarProperty Name="region" ColumnName="region" />
                 <ScalarProperty Name="photo" ColumnName="photo" />
                 <ScalarProperty Name="gender" ColumnName="gender" />

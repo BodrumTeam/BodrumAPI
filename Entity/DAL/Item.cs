@@ -31,9 +31,11 @@ namespace Entity.DAL
         public Nullable<bool> isApproved { get; set; }
         public Nullable<bool> isAvailable { get; set; }
         public Nullable<bool> isDeleted { get; set; }
+        public Nullable<int> fk_userId { get; set; }
         public Nullable<int> fk_categoryId { get; set; }
     
         public virtual Category Category { get; set; }
+        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Item_Operation> Item_Operation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
