@@ -13,10 +13,10 @@ namespace Entity.DAL
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class BodrumEntities1 : DbContext
+    public partial class BodrumEntities : DbContext
     {
-        public BodrumEntities1()
-            : base("name=BodrumEntities1")
+        public BodrumEntities()
+            : base("name=BodrumEntities")
         {
         }
     
