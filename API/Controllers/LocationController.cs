@@ -24,20 +24,26 @@ namespace API.Controllers
         }
 
         [Route("cities/getAll")]
-        public List<CityDTO> GetCities()
+        public IEnumerable<CityDTO> GetCities()
         {
             return  uow.CityManager.GetAll().Select(c =>
             new CityDTO {
                Id =c.id,
                 Name =c.name,
                 Fk_countryId = c.fk_countryId
-            }).ToList();
+            });
         }
 
-        [Route("regions/getAll")]
-        public IEnumerable<Region> GetRegions()
+        [Route("regiones/getAll")]
+        public IEnumerable<RegionDTO> GetRegions()
         {
-            return uow.RegionManager.GetAll();
+            return uow.RegionManager.GetAll().Select(c =>
+           new RegionDTO
+           {
+               Id = c.id,
+               Name = c.name,
+               Fk_cityId = c.fk_cityId
+           });
         }
 
 
