@@ -1,4 +1,5 @@
 ﻿using API.BLL.UnitOFWork;
+using API.DTO;
 using Entity.DAL;
 using System;
 using System.Collections.Generic;
@@ -13,16 +14,32 @@ namespace API.Controllers
     public class ItemController : ApiController
     {
         private UnitOfWork uow = new UnitOfWork();
-
         [Route("getAll")]
-        public IEnumerable<Item> Get()
+        public IEnumerable<ItemDTO> Get()
         {
-            return uow.ItemManager.GetAll().ToList();
+            return uow.ItemManager.GetAll().ToList().Select(c => new ItemDTO
+            {
+                Title = c.title,
+                Description = c.description,
+                Photo = c.photo,
+                Price = c.price,
+                Date = c.date,
+                isApproved = c.isApproved,
+                isAvailable = c.isAvailable,
+                isDeleted = c.isDeleted,
+                fk_userId = c.fk_userId,
+                fk_categoryId =c.fk_categoryId
+            }).ToList();
+
+
         }
-        
-        public string Get(int id)
+
+        [Route("getById/{id}")]
+        // GET: rpc/item/5
+        public Item Get(int id)
         {
-            return "value";
+            Item item = uow.ItemManager.GetById(id);
+            return item;
         }
 
         // POST: api/Item

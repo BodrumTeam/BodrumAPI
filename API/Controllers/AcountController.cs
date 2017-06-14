@@ -25,13 +25,13 @@ namespace API.Controllers
             return users;
         }
 
-        // GET: rpc/acount/5
         [Route("getById/{id}")]
+        // GET: rpc/acount/5
         public User Get(int id)
         {
-            return uow.UserManager.GetById(id);
+            User user = uow.UserManager.GetById(id);
+            return user;
         }
-
         // POST: rpc/account/login
         [Route("login")]
         public IHttpActionResult PostLogin([FromBody]UserLogin userLogin)

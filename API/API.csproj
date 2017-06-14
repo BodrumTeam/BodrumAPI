@@ -172,6 +172,7 @@
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="DTO\CityDTO.cs" />
+    <Compile Include="DTO\ItemDTO.cs" />
     <Compile Include="DTO\RegionDTO.cs" />
     <Compile Include="DTO\UserLogin.cs" />
     <Compile Include="Enum\RegisterResult.cs" />
